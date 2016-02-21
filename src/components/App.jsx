@@ -1,49 +1,47 @@
 import 'normalize.css';
 import 'styles/App.scss';
+import '../../node_modules/leaflet/dist/leaflet.css';
 
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import Theme from '../theme.js';
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
-import FlatButton from 'material-ui/lib/flat-button';
-import RaisedButton from 'material-ui/lib/raised-button';
-import TextField from 'material-ui/lib/text-field';
-
-const style = {
-  margin: 12
-};
+import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: [51.505, -0.09]
+    };
+  }
+
   getChildContext() {
     return {muiTheme: ThemeManager.getMuiTheme(Theme)};
+  }
+
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => this.setState({
+        position: [position.coords.latitude, position.coords.longitude]
+      }));
+    }
   }
 
   render() {
     return (
       <div className="app">
         <AppBar title="где автобус"/>
-        <div>
-          <FlatButton label="Default" style={style}/>
-          <FlatButton label="Primary" primary={true} style={style}/>
-          <FlatButton label="Secondary" secondary={true} style={style}/>
-          <FlatButton label="Disabled" disabled={true} style={style}/>
-        </div>
-        <div>
-          <RaisedButton label="Default" style={style}/>
-          <RaisedButton label="Primary" primary={true} style={style}/>
-          <RaisedButton label="Secondary" secondary={true} style={style}/>
-          <RaisedButton label="Disabled" disabled={true} style={style}/>
-        </div>
-        <div>
-          <TextField hintText="Hint Text"/><br/>
-          <br/>
-          <TextField hintText="The hint text can be as long as you want, it will wrap."/><br/>
-          <TextField defaultValue="Default Value"/><br/>
-          <TextField hintText="Hint Text" floatingLabelText="Floating Label Text"/><br/>
-          <TextField hintText="Password Field" floatingLabelText="Password" type="password"/><br/>
-          <TextField hintText="MultiLine with rows: 2 and rowsMax: 4" multiLine={true} rows={2} rowsMax={4}/><br/>
-          <TextField hintText="Message Field" floatingLabelText="MultiLine and FloatingLabel" multiLine={true} rows={2}/>
-        </div>
+        <Map className="map" style={{
+          backgroundColor: '#242426'
+        }} center={this.state.position} zoom={13}>
+          <TileLayer url='http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'/>
+          <Marker position={this.state.position}>
+            <Popup>
+              <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
+            </Popup>
+          </Marker>
+        </Map>
       </div>
     );
   }
