@@ -6,6 +6,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import Theme from '../theme.js';
 import React from 'react';
 import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
+import io from 'socket.io-client';
 
 const apiUrl = location.hostname === 'localhost'
   ? 'http://localhost:3000'
