@@ -15,12 +15,12 @@ export default {
     accent2Color: Colors.orangeA200,
     accent3Color: Colors.orangeA100,
 
-    textColor: Colors.darkBlack,
+    textColor: Colors.white,
     alternateTextColor: Colors.white,
 
-    canvasColor: Colors.white,
+    canvasColor: '#242426',//Colors.white,
     borderColor: Colors.grey300,
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
-    pickerHeaderColor: Colors.cyan500
+    pickerHeaderColor: Colors.blueGrey500
   }
 };
