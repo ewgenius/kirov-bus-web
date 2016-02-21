@@ -11,13 +11,31 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.map {
+.routes-list {
+  height: calc(100% - 64px);
+  overflow-y: auto;
+}
+
+.app {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
   right: 0;
-  width: calc(100% - 256px);
+  left: 0;
+  background-color: #242426;
+
+  .main {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.map {
+  background-color: #242426 !important;
+  width: 100%;
+  height: calc(100% - 64px);
 }
 
 .leaflet-control-zoom-in,
@@ -36,9 +54,12 @@
     color: rgba(#000000, 0.7) !important;
   }
 }
-.leaflet-popup-tip, .leaflet-popup-content-wrapper {
+
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
   background-color: #563413 !important;
 }
+
 .leaflet-popup-content-wrapper {
   color: #fff !important;
   font-family: 'Roboto' !important;
