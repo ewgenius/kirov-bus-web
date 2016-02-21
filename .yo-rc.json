@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "kirovBusWeb",
+    "style": "scss",
+    "postcss": false
+  }
+}
