@@ -36,3 +36,11 @@
     color: rgba(#000000, 0.7) !important;
   }
 }
+.leaflet-popup-tip, .leaflet-popup-content-wrapper {
+  background-color: #563413 !important;
+}
+.leaflet-popup-content-wrapper {
+  color: #fff !important;
+  font-family: 'Roboto' !important;
+  border-radius: 2px !important;
+}

@@ -7,13 +7,20 @@ import Theme from '../theme.js';
 import React from 'react';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
-import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
+import DirectionsBus from 'material-ui/lib/svg-icons/maps/directions-bus';
+import {Map, Marker, Popup, TileLayer, ZoomControl, Polyline} from 'react-leaflet';
+import {Icon} from 'leaflet';
 import io from 'socket.io-client';
 import routes from '../sources/dataRoutes.js';
 
 const apiUrl = location.hostname === 'localhost'
   ? 'http://localhost:3000'
   : 'https://kirov-bus.herokuapp.com';
+
+const stopIcon = new Icon({
+  iconUrl: require('../images/AWT-Bus.png'),
+  iconSize: [24, 24]
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -24,15 +31,16 @@ class App extends React.Component {
       ],
       navOpen: true,
       scheme: [],
-      busstops: []
+      busstops: [],
+      buses: []
     };
 
-    const socket = io(apiUrl);
-    socket.on('connected', () => {
+    this.socket = io(apiUrl);
+    this.socket.on('connected', () => {
       console.log(`connected to ${apiUrl}`);
     });
 
-    socket.on('route.update', update => {
+    this.socket.on('route.update', update => {
       console.log(update);
     });
   }
@@ -56,13 +64,18 @@ class App extends React.Component {
   }
 
   getRoute(route) {
+    this.setState({
+      scheme: [],
+      busstops: []
+    });
     fetch(`${apiUrl}/api/route?route=${route.value}`)
       .then(r => r.json())
       .then(result => {
         this.setState({
-          scheme: result.scheme,
+          scheme: result.scheme.map(point => [Number(point.lat), Number(point.lng)]),
           busstops: result.busstop
         });
+        //this.socket.emit('subscribe', route.value);
       })
       .catch(err => console.error(err));
   }
@@ -71,20 +84,28 @@ class App extends React.Component {
     return (
       <div className="app">
         <LeftNav open={this.state.navOpen}>
-          {routes.map((route, i) => <MenuItem key={i} onClick={() => this.getRoute(route)}>{route.name}</MenuItem>)}
+          {routes.map((route, i) => <MenuItem primaryText={route.name} leftIcon={<DirectionsBus />} key={i} onClick={() => this.getRoute(route)}/>)}
         </LeftNav>
         <Map className="map" style={{
           left: 256,
           backgroundColor: '#242426'
-        }} center={this.state.position} zoom={13} zoomControl={false}>
+        }} center={this.state.position} zoom={12} zoomControl={false}>
           <TileLayer url='http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'/>
           {
-            this.state.busstops.map((stop, i) => <Marker key={i} position={[Number(stop.lat), Number(stop.lng)]}>
+            this.state.busstops.map((stop, i) => <Marker key={i} icon={stopIcon} position={[Number(stop.lat), Number(stop.lng)]}>
                 <Popup>
                   <span>{stop.stop_name}</span>
                 </Popup>
               </Marker>)
           }
+          {
+            this.state.buses.map((bus, i) => <Marker key={i} position={[Number(bus.lat), Number(bus.lng)]}>
+                <Popup>
+                  <span>{bus.info}</span>
+                </Popup>
+              </Marker>)
+          }
+          <Polyline color={Theme.palette.accent1Color} positions={this.state.scheme} />
           <ZoomControl position='bottomright'/>
         </Map>
       </div>
