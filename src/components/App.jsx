@@ -10,20 +10,22 @@ import io from 'socket.io-client';
 
 const apiUrl = location.hostname === 'localhost'
   ? 'http://localhost:3000'
-  : 'https://kirov-bus.herokuapp.com/';
+  : 'https://kirov-bus.herokuapp.com';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: [
-        51.505, -0.09
-      ],
-      dataSource: []
+      position: [51.505, -0.09]
     };
-    let socket = io(apiUrl, {path: '/socket.io/socket.io'});
+
+    const socket = io(apiUrl);
     socket.on('connected', () => {
-      console.log('connected');
+      console.log(`connected to ${apiUrl}`);
+    });
+
+    socket.on('route.update', update => {
+      console.log(update);
     });
   }
 
@@ -37,15 +39,6 @@ class App extends React.Component {
         position: [position.coords.latitude, position.coords.longitude]
       }));
     }
-  }
-
-  handleUpdateInput(t) {
-    this.setState({
-      dataSource: [
-        t, t + t,
-        t + t + t
-      ]
-    });
   }
 
   render() {
