@@ -7,6 +7,10 @@ import Theme from '../theme.js';
 import React from 'react';
 import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
 
+const apiUrl = location.hostname === 'localhost'
+  ? 'http://localhost:3000'
+  : 'https://kirov-bus.herokuapp.com/';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +20,10 @@ class App extends React.Component {
       ],
       dataSource: []
     };
+    let socket = io(apiUrl, {path: '/socket.io/socket.io'});
+    socket.on('connected', () => {
+      console.log('connected');
+    });
   }
 
   getChildContext() {
