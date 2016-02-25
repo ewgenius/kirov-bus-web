@@ -55,10 +55,12 @@ class App extends React.Component {
     });
 
     this.socket.on('route.update', update => {
-      console.log(update);
-      this.setState({
-        buses: Object.keys(update.data).map(key => update.data[key])
-      });
+      if(update.route === this.state.selectedRoute.value) {
+        console.log(update);
+        this.setState({
+          buses: Object.keys(update.data).map(key => update.data[key])
+        });
+      }
     });
 
     window.onresize = this.resize.bind(this);
