@@ -130,7 +130,7 @@ class App extends React.Component {
           width={sidebarWidth}>
           <AppBar />
           <List className="routes-list">
-            {routes.map((route, i) => <ListItem primaryText={route.name} leftIcon={<DirectionsBus />} key={i} onClick={() => this.getRoute(route)}/>)}
+            {routes.map((route, i) => <ListItem primaryText={route.text} leftIcon={<DirectionsBus />} key={i} onClick={() => this.getRoute(route)}/>)}
           </List>
         </LeftNav>
 
