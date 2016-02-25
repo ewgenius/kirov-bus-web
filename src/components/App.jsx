@@ -36,7 +36,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       position: [
-        51.505, -0.09
+        58.5966500, 49.6600700
+
       ],
       selectedRoute: null,
       scheme: [],
