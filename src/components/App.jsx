@@ -38,6 +38,7 @@ class App extends React.Component {
       position: [
         51.505, -0.09
       ],
+      selectedRoute: null,
       scheme: [],
       busstops: [],
       buses: [],
@@ -55,6 +56,9 @@ class App extends React.Component {
 
     this.socket.on('route.update', update => {
       console.log(update);
+      this.setState({
+        buses: Object.keys(update.data).map(key => update.data[key])
+      });
     });
 
     window.onresize = this.resize.bind(this);
@@ -96,16 +100,20 @@ class App extends React.Component {
   getRoute(route) {
     this.setState({
       scheme: [],
-      busstops: []
+      busstops: [],
+      buses: []
     });
     fetch(`${apiUrl}/api/route?route=${route.value}`)
       .then(r => r.json())
       .then(result => {
+        if (this.state.selectedRoute)
+          this.socket.emit('unsubscribe', this.state.selectedRoute.value);
         this.setState({
+          selectedRoute: route,
           scheme: result.scheme.map(point => [Number(point.lat), Number(point.lng)]),
           busstops: result.busstop
         });
-        //this.socket.emit('subscribe', route.value);
+        this.socket.emit('subscribe', route.value);
       })
       .catch(err => console.error(err));
   }
