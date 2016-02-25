@@ -6,29 +6,27 @@ import IconButton from 'material-ui/lib/icon-button';
 import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu';
 import AutoComplete from 'material-ui/lib/auto-complete';
 
-class SearchBar extends React.Component {
+class NavigationBar extends React.Component {
   render() {
     return (
-      <Paper className="search-bar" style={{
-        position: 'fixed',
-        zIndex: 1000,
-        top: 16,
-        left: 16,
-        width: 340,
-        height: 48
-      }} zDepth={1}>
-        <IconButton>
+      <Paper className="search-bar" style={this.props.paperStyle} zDepth={1}>
+        <IconButton onClick={this.props.onMenuClick}>
           <NavigationMenu/>
         </IconButton>
-        <AutoComplete style={{height: 32}} disableFocusRipple={true} hintText="Type c" dataSource={this.state.dataSource} onUpdateInput={this.handleUpdateInput.bind(this)}/>
+        <AutoComplete
+          style={{height: 32}}
+          triggerUpdateOnFocus={true}
+          disableFocusRipple={true}
+          hintText="Выберите автобус"
+          dataSource={this.props.list}/>
       </Paper>
     );
   }
 }
 
-SearchBar.displayName = 'SearchBar';
+NavigationBar.displayName = 'NavigationBar';
 
 // SearchBarComponent.propTypes = {};
 // SearchBarComponent.defaultProps = {};
 
-export default SearchBar;
+export default NavigationBar;
