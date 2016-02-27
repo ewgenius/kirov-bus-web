@@ -137,6 +137,7 @@ class App extends React.Component {
 
         <div className="main" style={this.state.mainStyle}>
           <AppBar
+            title={this.state.selectedRoute ? this.state.selectedRoute.text : ''}
             iconElementLeft={<IconButton onClick={() => this.toggleSidebar(!this.state.sidebarOpen)}><NavigationMenu/></IconButton>}/>
           <Map ref="map" className="map" center={this.state.position} zoom={12} zoomControl={false}>
             <TileLayer url='http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'/>
