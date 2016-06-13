@@ -6,5 +6,6 @@ module.exports = [
   'react-redux',
   'immutable',
   'material-ui',
-  'react-tap-event-plugin'
+  'react-tap-event-plugin',
+  'mapbox-gl'
 ]

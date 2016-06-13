@@ -1,6 +1,7 @@
 var webpack = require('webpack')
 var loaders = require('./config/loaders')
 var vendor = require('./config/vendor')
+var postLoaders = require('./config/postLoaders')
 
 module.exports = {
   entry: {
@@ -12,7 +13,8 @@ module.exports = {
     path: './build'
   },
   module: {
-    loaders
+    loaders,
+    postLoaders
   },
   plugins: [
     new webpack.ProvidePlugin({

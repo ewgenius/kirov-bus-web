@@ -2,10 +2,9 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
+import Map from '../components/Map/Map.jsx'
 import appTheme from '../appTheme'
 import '../styles/main.scss'
-
-
 
 const mapStateToProps = () => do {
   ({test: 'test'})
@@ -20,6 +19,7 @@ class App extends Component {
     return <MuiThemeProvider muiTheme={appTheme}>
       <div className='App'>
         <AppBar title='Kirov bus'/>
+        <Map accessToken='pk.eyJ1IjoiZXdnZW5pdXMiLCJhIjoiOWVhZDRmMmFmNjc2OTIxMjRhNWNlYWM1MWQwYjc4NzIifQ.wkZoq8jNF0WS_rLBfzbAtw'/>
       </div>
     </MuiThemeProvider>
   }
