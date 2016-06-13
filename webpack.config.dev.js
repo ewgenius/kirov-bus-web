@@ -13,6 +13,11 @@ module.exports = {
     path: path.resolve('./dist'),
     filename: '[name].bundle.js'
   },
+  resolve: {
+    alias: {
+      'webworkify': 'webworkify-webpack'
+    }
+  },
   module: {
     loaders,
     postLoaders

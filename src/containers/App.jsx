@@ -19,7 +19,7 @@ class App extends Component {
     return <MuiThemeProvider muiTheme={appTheme}>
       <div className='App'>
         <AppBar title='Kirov bus'/>
-        <Map accessToken='pk.eyJ1IjoiZXdnZW5pdXMiLCJhIjoiOWVhZDRmMmFmNjc2OTIxMjRhNWNlYWM1MWQwYjc4NzIifQ.wkZoq8jNF0WS_rLBfzbAtw'/>
+        <Map />
       </div>
     </MuiThemeProvider>
   }
