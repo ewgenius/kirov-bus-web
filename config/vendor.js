@@ -4,5 +4,7 @@ module.exports = [
   'react-router',
   'redux',
   'react-redux',
-  'immutable'
+  'immutable',
+  'material-ui',
+  'react-tap-event-plugin'
 ]
