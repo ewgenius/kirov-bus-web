@@ -1,0 +1,46 @@
+{
+  "name": "kirov-bus-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.dev.js",
+  "scripts": {
+    "bundle": "npm run markup && webpack -c --config webpack.config.prod.js",
+    "markup": "jade src/index.jade -o build -P && jade src/index.jade -o dist -P",
+    "serve": "npm run markup && webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ewgenius/kirov-bus-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ewgenius/kirov-bus-web/issues"
+  },
+  "homepage": "https://github.com/ewgenius/kirov-bus-web#readme",
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "exports-loader": "^0.6.3",
+    "file-loader": "^0.8.5",
+    "imports-loader": "^0.6.5",
+    "node-sass": "^3.7.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
