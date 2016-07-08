@@ -1,3 +1,7 @@
-import * as mapboxgl from 'mapbox-gl'
+import * as React from 'react'
+import {render} from 'react-dom'
 
-console.log(mapboxgl)
+
+//const container = document.
+
+//render(<div>app</div>, document.get

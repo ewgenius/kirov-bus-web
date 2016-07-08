@@ -7,7 +7,7 @@ var postLoaders = require('./config/postLoaders')
 module.exports = {
   entry: {
     app: path.resolve('./.temp/app.js'),
-    vendor
+    //vendor
   },
   output: {
     path: path.resolve('./dist'),
@@ -26,6 +26,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity)
+    //new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity)
   ]
 }
