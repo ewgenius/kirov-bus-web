@@ -5,7 +5,7 @@ var postLoaders = require('./config/postLoaders')
 
 module.exports = {
   entry: {
-    app: './src/app.jsx',
+    app: './.temp/app.js',
     vendor
   },
   output: {
