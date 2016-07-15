@@ -8,7 +8,7 @@ const WebpackDevServer = require('webpack-dev-server')
 const webpackDevConfig = require('./webpack.config.dev.js')
 const webpackProdConfig = require('./webpack.config.prod.js')
 
-const manifest = require('./config/manifest.js')
+const manifest = require('./src/manifest.js')
 
 const appName = manifest.name
 const backgroundColor = manifest.background_color
@@ -61,3 +61,5 @@ gulp.task('bundle', ['markup', 'icons', 'manifest'], cb => {
     cb()
   })
 })
+
+gulp.task('default', ['markup', 'icons', 'manifest'])

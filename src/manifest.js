@@ -34,6 +34,6 @@ module.exports = {
   }],
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff"
+  "background_color": "#37474f",
+  "theme_color": "#263238"
 }
