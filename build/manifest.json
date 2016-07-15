@@ -1,5 +1,6 @@
 {
   "name": "Где автобус?",
+  "short_name": "Где автобус?",
   "icons": [{
     "src": "/icons/icon_36.png",
     "sizes": "36x36",
@@ -31,6 +32,7 @@
     "type": "image/png",
     "density": "4.0"
   }],
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff"
