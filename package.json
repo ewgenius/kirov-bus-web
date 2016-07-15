@@ -5,7 +5,9 @@
   "scripts": {
     "bundle": "npm run markup && webpack -c --config webpack.config.prod.js",
     "markup": "jade src/index.jade -o build -P && jade src/index.jade -o dist -P",
-    "serve": "npm run markup && webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js"
+    "serve": "npm run markup && webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js",
+    "assets": "mkdir -p build/icons && mkdir -p dist/icons && cp src/assets/icons/* build/icons && cp src/assets/icons/* dist/icons",
+    "manifest": "cp src/manifest.json build/ && cp src/manifest.json dist/"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,8 @@
     "sass-loader": "^3.2.3",
     "style-loader": "^0.13.1",
     "transform-loader": "^0.2.3",
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.10",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
