@@ -1,4 +1,4 @@
-{
+module.exports = {
   "name": "Где автобус?",
   "short_name": "Где автобус?",
   "icons": [{
