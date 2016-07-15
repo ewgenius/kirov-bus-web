@@ -6,6 +6,7 @@ const webpack = require('webpack')
 
 const WebpackDevServer = require('webpack-dev-server')
 const webpackDevConfig = require('./webpack.config.dev.js')
+const webpackProdConfig = require('./webpack.config.prod.js')
 
 const manifest = require('./config/manifest.js')
 
@@ -43,6 +44,20 @@ gulp.task('markup', () => {
     .pipe(gulp.dest('./dist'))
 })
 
+gulp.task('icons', () => {
+  gulp.src('./src/assets/icons/*')
+    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest('./dist'))
+})
+
 gulp.task('manifest', cb => {
   fs.writeFile('./build/manifest.json', JSON.stringify(manifest, null, 2), cb)
+})
+
+gulp.task('bundle', ['markup', 'icons', 'manifest'], cb => {
+  return webpack(webpackProdConfig, (err, stats) => {
+    if (err) throw new gutil.PluginError("webpack", err)
+    gutil.log("[webpack]", stats.toString({}))
+    cb()
+  })
 })

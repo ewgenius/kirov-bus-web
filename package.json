@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "bundle": "npm run markup && webpack -c --config webpack.config.prod.js",
-    "markup": "jade src/index.jade -o build -P && jade src/index.jade -o dist -P",
-    "serve": "npm run markup && webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js",
-    "assets": "mkdir -p build/icons && mkdir -p dist/icons && cp src/assets/icons/* build/icons && cp src/assets/icons/* dist/icons",
-    "manifest": "cp src/manifest.json build/ && cp src/manifest.json dist/"
+    "bundle": "webpack -c --config webpack.config.prod.js",
+    "serve": "webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
