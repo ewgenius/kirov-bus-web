@@ -46,8 +46,8 @@ gulp.task('markup', () => {
 
 gulp.task('icons', () => {
   gulp.src('./src/assets/icons/*')
-    .pipe(gulp.dest('./build'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./build/icons'))
+    .pipe(gulp.dest('./dist/icons'))
 })
 
 gulp.task('manifest', cb => {
