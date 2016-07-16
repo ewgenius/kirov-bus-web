@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700&subset=latin,cyrillic);
+@import './_variables.scss';
 
 body,
 html {
@@ -15,7 +16,7 @@ html, body, #app, .view {
 
 .content {
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - #{$appBarHeight}px);
   overflow-x: hidden;
   overflow-y: auto;
 }

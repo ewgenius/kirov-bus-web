@@ -14,7 +14,10 @@ interface Palette {
   colorPrimary: string
   colorAccent: string
 }
+
+
 const palette: Palette = require('!!sass-variable-loader!../../src/styles/_palette.scss')
+const variables = require('!!sass-variable-loader!../../src/styles/_variables.scss')
 
 const theme = getMuiTheme({
   palette: {
@@ -26,7 +29,7 @@ const theme = getMuiTheme({
     accent3Color: palette.colorAccent,
   },
   appBar: {
-    height: 50,
+    height: Number(variables.appBarHeight)
   }
 })
 
