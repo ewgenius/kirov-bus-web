@@ -1,5 +1,7 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import {MuiThemeProvider, getMuiTheme, lightBaseTheme} from 'material-ui/styles'
 
@@ -22,9 +24,13 @@ const theme = getMuiTheme({
     accent1Color: palette.colorAccent,
     accent2Color: palette.colorAccent,
     accent3Color: palette.colorAccent,
+  },
+  appBar: {
+    height: 50,
   }
 })
 
+//const store = create
 
 export default class App extends Component<any, any> {
   render() {

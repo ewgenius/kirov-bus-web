@@ -13,6 +13,7 @@
     "react-redux": "registry:dt/react-redux#4.4.0+20160703120921",
     "react-tap-event-plugin": "registry:dt/react-tap-event-plugin#0.0.0+20160602142434",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
-    "require": "registry:dt/require#2.1.20+20160316155526"
+    "require": "registry:dt/require#2.1.20+20160316155526",
+    "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160524142046"
   }
 }
