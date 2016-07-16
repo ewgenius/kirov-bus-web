@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
-import {createStore} from 'redux'
 import {Provider} from 'react-redux'
+import configureStore from '../configureStore'
 import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import {MuiThemeProvider, getMuiTheme, lightBaseTheme} from 'material-ui/styles'
 
@@ -14,7 +14,6 @@ interface Palette {
   colorPrimary: string
   colorAccent: string
 }
-
 
 const palette: Palette = require('!!sass-variable-loader!../../src/styles/_palette.scss')
 const variables = require('!!sass-variable-loader!../../src/styles/_variables.scss')
@@ -33,12 +32,14 @@ const theme = getMuiTheme({
   }
 })
 
-//const store = create
+const store = configureStore()
 
 export default class App extends Component<any, any> {
   render() {
-    return <MuiThemeProvider muiTheme={theme}>
-      <AppView />
-    </MuiThemeProvider>
+    return <Provider store={store}>
+      <MuiThemeProvider muiTheme={theme}>
+        <AppView />
+      </MuiThemeProvider>
+    </Provider>
   }
 }
