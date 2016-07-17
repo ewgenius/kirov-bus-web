@@ -6,6 +6,7 @@ require('../../../src/components/AppShell/AppShell.scss')
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
@@ -14,7 +15,9 @@ import CircularProgress from 'material-ui/CircularProgress'
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
-
+import ActionTimeline from 'material-ui/svg-icons/action/timeline'
+import ActionSettings from 'material-ui/svg-icons/action/settings'
+import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 
 export default class AppShell extends Component<{
   sidebarOpen: boolean
@@ -39,11 +42,12 @@ export default class AppShell extends Component<{
         docked={false}
         onRequestChange={open => this.openSidebar(open)}>
         <AppBar showMenuIconButton={false} title='Где автобус?'/>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
+
+        <MenuItem leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
+        <MenuItem leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
+        <MenuItem leftIcon={<ActionSettings />} primaryText='Настройки'/>
+        <Divider />
+        <MenuItem primaryText='О приложении'/>
       </Drawer>
 
       <div className='content'>
