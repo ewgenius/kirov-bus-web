@@ -4,34 +4,32 @@ import RoutesList from '../../.temp/components/RoutesList/RoutesList'
 
 import muiTheme from '../decorators/muiTheme.jsx'
 
-import route from '../data/route'
+import routes from '../data/routes'
+
+const setFavorite = (id, favorite) => console.log(id, favorite)
 
 storiesOf('RoutesList', module)
   .addDecorator(muiTheme)
   .add('loading', () => (
     <RoutesList
       loading={true}
-      routes={[]} />
+      routes={[]}
+      favorites={[]}
+      setFavorite={setFavorite}/>
   ))
   .add('empty list', () => (
     <RoutesList
       loading={false}
-      routes={[]} />
+      routes={[]}
+      favorites={[]}
+      setFavorite={setFavorite}/>
   ))
   .add('full list', () => (
     <RoutesList
       loading={false}
-      routes={[
-        route,
-        route,
-        route,
-        route,
-        route,
-        route,
-        route,
-        route,
-        route,
-        route,
-        route
-      ]} />
+      routes={routes}
+      favorites={[
+        '5789e503dc2b1522111620b2'
+      ]}
+      setFavorite={setFavorite}/>
   ))

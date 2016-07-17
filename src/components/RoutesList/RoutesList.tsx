@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Component, PropTypes} from 'react'
 
 import {List, ListItem} from 'material-ui/List'
+import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
 
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
@@ -9,12 +10,22 @@ import ActionsStars from 'material-ui/svg-icons/action/stars'
 
 import {Route} from '../../models/Route'
 
+const palette = require('!!sass-variable-loader!../../../src/styles/_palette.scss')
+
+const routeType = type => {
+  if (type === 'bus') return 'городской автобус'
+  if (type === 'shuttle') return 'пригородный автобус'
+  if (type === 'trolleybus') return 'троллейбус'
+}
+
 export default class RoutesList extends Component<{
   routes: Array<any>
+  favorites: Array<string>
   loading: boolean
+  setFavorite: (id, favorite) => void
 }, {}> {
   render() {
-    const {routes, loading} = this.props
+    const {routes, loading, favorites} = this.props
 
     if (loading) return <CircularProgress style={{
         display: 'block',
@@ -24,12 +35,18 @@ export default class RoutesList extends Component<{
     else return <List>
       {
         routes.map((route: Route, i) => {
+          const isFavorite = favorites.indexOf(route._id) !== -1
+
           return <ListItem
             key={i}
             leftIcon={<DirectionsBus />}
-            rightIcon={<ActionsStars />}
+            rightIconButton={
+              <IconButton onTouchTap={() => this.props.setFavorite(route._id, !isFavorite)}>
+                <ActionsStars color={isFavorite ? palette.colorAccent : ''}/>
+              </IconButton>
+            }
             primaryText={`№${route.routeNumber}`}
-            secondaryText={route.routeType}
+            secondaryText={routeType(route.routeType)}
           />
         })
       }

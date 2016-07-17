@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem'
 import {List, ListItem} from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
+import RoutesList from '../RoutesList/RoutesList'
 
 //icons
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
@@ -30,6 +31,7 @@ class AppView extends Component<{
 }, any> {
   state = {
     routes: [],
+    favorites: [],
     loading: false
   }
 
@@ -57,8 +59,23 @@ class AppView extends Component<{
     })
   }
 
+  setFavorite(id, favorite) {
+    const favorites = this.state.favorites
+    if (favorite) {
+      this.setState({
+        favorites: favorites.concat([id])
+      })
+    } else {
+      const i = favorites.indexOf(id)
+
+      this.setState({
+        favorites: favorites.slice(0, i).concat(favorites.slice(i + 1))
+      })
+    }
+  }
+
   render() {
-    const {routes, loading} = this.state
+    const {routes, loading, favorites} = this.state
 
     return <div className='app-view view'>
       <AppBar
@@ -81,58 +98,14 @@ class AppView extends Component<{
         <MenuItem>test menu</MenuItem>
         <MenuItem>test menu</MenuItem>
         <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
       </Drawer>
 
       <div className='content'>
-        {loading ? <CircularProgress style={{
-          display: 'block',
-          margin: '10% auto'
-        }} /> : <List>
-          {
-            routes.map((route, i) => {
-              return <ListItem
-                key={i}
-                primaryText={`Маршрут ${route.routeNumber}`}
-                leftIcon={<DirectionsBus />}/>
-            })
-          }
-        </List>}
+        <RoutesList
+          routes={routes}
+          loading={loading}
+          favorites={favorites}
+          setFavorite={(id, favorite) => this.setFavorite(id, favorite)}/>
       </div>
     </div>
   }

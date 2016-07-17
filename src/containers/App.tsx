@@ -11,7 +11,6 @@ import AppView from '../components/AppView/AppView'
 require('../../src/styles/main.scss')
 injectTapEventPlugin()
 
-
 const store = configureStore()
 
 export default class App extends Component<any, any> {
