@@ -18,12 +18,13 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 export default class AppShell extends Component<{
   sidebarOpen: boolean
+  onSidebarOpen: Function
 }, any> {
   componentDidMount() {
   }
 
-
   openSidebar(open = true) {
+    this.props.onSidebarOpen(open)
   }
 
   render() {
@@ -36,30 +37,8 @@ export default class AppShell extends Component<{
       <Drawer
         open={this.props.sidebarOpen}
         docked={false}
-        onRequestChange={open => {
-          console.log(open)
-          this.openSidebar(open)
-        }}>
+        onRequestChange={open => this.openSidebar(open)}>
         <AppBar showMenuIconButton={false} title='Где автобус?'/>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
         <MenuItem>test menu</MenuItem>
         <MenuItem>test menu</MenuItem>
         <MenuItem>test menu</MenuItem>
@@ -68,7 +47,7 @@ export default class AppShell extends Component<{
       </Drawer>
 
       <div className='content'>
-        content
+        {this.props.children}
       </div>
     </div>
   }

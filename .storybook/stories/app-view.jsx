@@ -1,14 +1,22 @@
 import React from 'react'
-import { storiesOf, action } from '@kadira/storybook'
+import {storiesOf, linkTo} from '@kadira/storybook'
 import AppShell from '../../.temp/components/AppShell/AppShell'
 
-import {MuiThemeProvider} from 'material-ui/styles'
-import theme from '../../.temp/styles/theme'
-import '../../src/styles/main.scss'
+import muiTheme from '../decorators/muiTheme.jsx'
 
-storiesOf('Button', module)
+storiesOf('AppView', module)
+  .addDecorator(muiTheme)
   .add('default', () => (
-    <MuiThemeProvider muiTheme={theme}>
-      <AppShell sidebarOpen={false}/>
-    </MuiThemeProvider>
+    <AppShell
+      sidebarOpen={false}
+      onSidebarOpen={linkTo('AppView', 'sidebar open')}>
+      content 1
+    </AppShell>
+  ))
+  .add('sidebar open', () => (
+    <AppShell
+      sidebarOpen={true}
+      onSidebarOpen={linkTo('AppView', 'default')}>
+      content 1
+    </AppShell>
   ))
