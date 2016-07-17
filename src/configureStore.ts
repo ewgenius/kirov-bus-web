@@ -1,45 +1,23 @@
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import * as createLogger from 'redux-logger'
-import {set, lensPath, compose} from 'ramda'
+
+import ui from './reducers/ui'
+import {UiState} from './reducers/ui'
 
 const logger = createLogger()
 
-type IState = {
-  ui: {
-    sidebarOpen: boolean
-  },
-  routes: any
+export interface State {
+  ui: UiState
 }
-const initialState: IState = {
-  ui: {
-    sidebarOpen: false
-  },
-  routes: {
-    loading: false,
-    list: []
-  }
-}
-
-const lensSidebar = lensPath(['ui', 'sidebarOpen'])
 
 export default () => {
-  const store = createStore((state: IState = initialState, action) => {
-    switch (action.type) {
-      case 'SIDEBAR_OPEN': {
-        return set(lensSidebar, true, initialState)
-      }
-      case 'SIDEBAR_CLOSE': {
-        return set(lensSidebar, false, initialState)
-      }
-      case 'SIDEBAR_TOGGLE': {
-        return set(lensSidebar, !state.ui.sidebarOpen, initialState)
-      }
-      default: {
-        return state
-      }
-    }
-  }, applyMiddleware(thunk, logger))
+  const store = createStore(combineReducers({
+    ui
+  }), applyMiddleware(
+    thunk,
+    logger
+  ))
 
   return store
 }
