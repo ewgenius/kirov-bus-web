@@ -4,7 +4,13 @@ var loaders = require('../config/loaders')
 var postLoaders = require('../config/postLoaders')
 
 module.exports = {
+  resolve: {
+    alias: {
+      'webworkify': 'webworkify-webpack'
+    }
+  },
   module: {
-    loaders: loaders
+    loaders,
+    postLoaders
   }
 }

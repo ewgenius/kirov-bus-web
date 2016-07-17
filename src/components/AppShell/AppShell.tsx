@@ -10,6 +10,7 @@ import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
+import Sidebar from '../Sidebar/Sidebar'
 
 //icons
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
@@ -21,7 +22,7 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 
 export default class AppShell extends Component<{
   sidebarOpen: boolean
-  onSidebarOpen: Function
+  onSidebarOpen: (open: boolean) => void
 }, any> {
   componentDidMount() {
   }
@@ -37,18 +38,7 @@ export default class AppShell extends Component<{
         iconElementLeft={<IconButton onTouchTap={() => this.openSidebar()}><NavigationMenu/></IconButton>}
         iconElementRight={<IconButton onTouchTap={() => {}}><NavigationRefresh/></IconButton>}
         />
-      <Drawer
-        open={this.props.sidebarOpen}
-        docked={false}
-        onRequestChange={open => this.openSidebar(open)}>
-        <AppBar showMenuIconButton={false} title='Где автобус?'/>
-
-        <MenuItem leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
-        <MenuItem leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
-        <MenuItem leftIcon={<ActionSettings />} primaryText='Настройки'/>
-        <Divider />
-        <MenuItem primaryText='О приложении'/>
-      </Drawer>
+      <Sidebar sidebarOpen={this.props.sidebarOpen} onSidebarOpen={this.props.onSidebarOpen}/>
 
       <div className='content'>
         {this.props.children}

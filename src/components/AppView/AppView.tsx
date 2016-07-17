@@ -5,12 +5,11 @@ require('../../../src/components/AppView/AppView.scss')
 
 // components
 import AppBar from 'material-ui/AppBar'
-import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
 import {List, ListItem} from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import RoutesList from '../RoutesList/RoutesList'
+import Sidebar from '../Sidebar/Sidebar'
 
 //icons
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
@@ -83,22 +82,8 @@ class AppView extends Component<{
         iconElementLeft={<IconButton onTouchTap={() => this.openSidebar()}><NavigationMenu/></IconButton>}
         iconElementRight={<IconButton onTouchTap={() => this.load()}><NavigationRefresh/></IconButton>}
         />
-      <Drawer
-        open={this.props.sidebarOpen}
-        docked={false}
-        onRequestChange={open => {
-          console.log(open)
-          this.openSidebar(open)
-        }}>
-        <AppBar showMenuIconButton={false} title='Где автобус?'/>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-        <MenuItem>test menu</MenuItem>
-      </Drawer>
+
+      <Sidebar sidebarOpen={this.props.sidebarOpen} onSidebarOpen={open => this.openSidebar(open)}/>
 
       <div className='content'>
         <RoutesList

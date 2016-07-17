@@ -5,7 +5,7 @@ var postLoaders = require('./config/postLoaders')
 
 module.exports = {
   entry: {
-    app: './.temp/app.js',
+    app: ['babel-polyfill', './.temp/app.js'],
     vendor
   },
   output: {
