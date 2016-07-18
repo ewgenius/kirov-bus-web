@@ -19,8 +19,11 @@ module.exports = {
     }
   },*/
   module: {
-    loaders,
-    //postLoaders
+    loaders
+    //, postLoaders
+  },
+  glsl: {
+    chunkPath: __dirname + "/glsl/chunks"
   },
   plugins: [
     new webpack.ProvidePlugin({

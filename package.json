@@ -19,8 +19,7 @@
   "dependencies": {
     "babel-polyfill": "^6.9.1",
     "immutable": "^3.8.1",
-    "mapbox-gl": "^0.20.1",
-    "mapbox-gl-shaders": "git+https://github.com/ewgenius/mapbox-gl-shaders.git",
+    "mapbox-gl": "git+https://github.com/ewgenius/mapbox-gl-js.git",
     "material-ui": "^0.15.1",
     "ramda": "^0.21.0",
     "react": "^15.2.0",
@@ -52,6 +51,7 @@
     "node-sass": "^3.8.0",
     "sass-loader": "^3.2.3",
     "sass-variable-loader": "0.0.3",
+    "shader-loader": "^1.1.4",
     "style-loader": "^0.13.1",
     "transform-loader": "^0.2.3",
     "ts-loader": "^0.8.2",
@@ -60,6 +60,7 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webworkify-webpack": "^1.1.1",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "worker-loader": "^0.7.1"
   }
 }
