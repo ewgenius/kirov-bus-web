@@ -13,17 +13,14 @@ module.exports = {
     path: path.resolve('./dist'),
     filename: '[name].bundle.js'
   },
-  /*resolve: {
+  resolve: {
     alias: {
       'webworkify': 'webworkify-webpack'
     }
-  },*/
-  module: {
-    loaders
-    //, postLoaders
   },
-  glsl: {
-    chunkPath: __dirname + "/glsl/chunks"
+  module: {
+    loaders,
+    postLoaders
   },
   plugins: [
     new webpack.ProvidePlugin({

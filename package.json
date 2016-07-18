@@ -19,7 +19,7 @@
   "dependencies": {
     "babel-polyfill": "^6.9.1",
     "immutable": "^3.8.1",
-    "mapbox-gl": "git+https://github.com/ewgenius/mapbox-gl-js.git",
+    "mapbox-gl": "^0.21.0",
     "material-ui": "^0.15.1",
     "ramda": "^0.21.0",
     "react": "^15.2.0",
@@ -59,7 +59,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webworkify-webpack": "^1.1.1",
+    "webworkify-webpack": "^1.0.6",
     "whatwg-fetch": "^1.0.0",
     "worker-loader": "^0.7.1"
   }

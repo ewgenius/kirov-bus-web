@@ -1,6 +1,10 @@
 const path = require('path')
 
 module.exports = [{
+  test: /\.js$/,
+  include: path.resolve('node_modules/mapbox-gl-shaders/index.js'),
+  loader: 'babel'
+}, {
   test: /\.jsx?$/,
   exclude: /(node_modules|bower_components)/,
   loader: 'babel',
@@ -25,13 +29,4 @@ module.exports = [{
 }, {
   test: /\.json$/,
   loader: 'json-loader'
-}, {
-  test: /\.worker.js$/,
-  loader: 'worker',
-  query: {
-    inline: true
-  }
-}, {
-  test: /\.glsl$/,
-  loader: 'shader'
 }]
