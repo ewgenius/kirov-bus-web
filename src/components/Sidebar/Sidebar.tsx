@@ -30,7 +30,13 @@ export default class Sidebar extends Component<{
       docked={this.props.docked}
       width={300}
       onRequestChange={this.props.onSidebarOpen}>
-        <AppBar showMenuIconButton={false} title='Где автобус?'/>
+        <AppBar
+          showMenuIconButton={false}
+          title='Где автобус?'
+          titleStyle={{
+            fontSize: 20
+          }}
+          />
 
         <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/routes')} leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
         <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/routes/favorite')} leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>

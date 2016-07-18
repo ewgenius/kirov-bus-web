@@ -5,6 +5,9 @@ import {push} from 'react-router-redux'
 
 import {State} from '../configureStore'
 
+// actions
+import {sidebarOpen, sidebarClose} from '../actions/ui'
+
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -24,16 +27,17 @@ interface ShellProps {
   }
 })
 export default class Shell extends Component<any, any> {
+
   render() {
+    const {dispatch} = this.props
+
     return <div className='shell view'>
       <Sidebar
         sidebarOpen={this.props.sidebarOpen}
-        onSidebarOpen={open => this.props.dispatch({
-          type: open ? 'SIDEBAR_OPEN' : 'SIDEBAR_CLOSE'
-        })}
+        onSidebarOpen={open => dispatch(open ? sidebarOpen() : sidebarClose())}
         onMenuSelect={path => {
-          this.props.dispatch(push(path))
-          this.props.dispatch({type: 'SIDEBAR_CLOSE'})
+          dispatch(push(path))
+          dispatch(sidebarClose())
         }}
         />
 

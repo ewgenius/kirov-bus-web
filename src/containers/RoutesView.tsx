@@ -4,23 +4,35 @@ import {connect} from 'react-redux'
 
 import {State} from '../configureStore'
 
+// actions
+import {requestRoutes} from '../actions/routes'
+
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
+import RoutesList from '../components/RoutesList/RoutesList'
 
 //icons
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 interface Props {
+  loading: boolean
+  routes: Array<any>
+  dispatch: any
 }
 
 @connect((state: State): Props => {
   return {
-
+    loading: state.routes.loading,
+    routes: state.routes.routes
   }
 })
-export default class RoutesView extends Component<any, any> {
+export default class RoutesView extends Component<Props, any> {
+  componentDidMount() {
+    this.props.dispatch(requestRoutes())
+  }
+
   render() {
     return <div className='routes view'>
       <AppBar
@@ -35,7 +47,12 @@ export default class RoutesView extends Component<any, any> {
         />
 
       <div className='content'>
-        {this.props.children}
+        <RoutesList
+          loading={this.props.loading}
+          routes={this.props.routes}
+          favorites={[]}
+          setFavorite={() => {}}
+          />
       </div>
     </div>
   }
