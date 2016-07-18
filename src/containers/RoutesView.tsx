@@ -25,6 +25,9 @@ export default class RoutesView extends Component<any, any> {
     return <div className='routes view'>
       <AppBar
         title='Выберите маршрут'
+        titleStyle={{
+          fontSize: 20
+        }}
         iconElementLeft={<IconButton onTouchTap={() => this.props.dispatch({
           type: 'SIDEBAR_OPEN'
         })}><NavigationMenu/></IconButton>}

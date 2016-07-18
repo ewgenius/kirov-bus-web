@@ -16,6 +16,9 @@ export default class Settings extends Component<any, any> {
     return <div className='settings view'>
     <AppBar
       title='Настройки'
+      titleStyle={{
+        fontSize: 20
+      }}
       iconElementLeft={
         <IconButton onTouchTap={() => this.props.dispatch(goBack())}>
           <NavigationArrowBack/>

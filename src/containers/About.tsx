@@ -16,6 +16,9 @@ export default class About extends Component<any, any> {
     return <div className='about view'>
     <AppBar
       title='О приложении'
+      titleStyle={{
+        fontSize: 20
+      }}
       iconElementLeft={
         <IconButton onTouchTap={() => this.props.dispatch(goBack())}>
           <NavigationArrowBack/>

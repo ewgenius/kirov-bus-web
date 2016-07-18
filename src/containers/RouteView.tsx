@@ -19,6 +19,9 @@ export default class RouteView extends Component<any, any> {
     return <div className='route view'>
       <AppBar
         title='Маршрут'
+        titleStyle={{
+          fontSize: 20
+        }}
         iconElementLeft={
           <IconButton onTouchTap={() => this.props.dispatch(goBack())}>
             <NavigationArrowBack/>
