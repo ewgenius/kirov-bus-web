@@ -7,7 +7,6 @@ import {State} from '../configureStore'
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import Sidebar from '../components/Sidebar/Sidebar'
 
 //icons
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
@@ -23,7 +22,7 @@ interface Props {
 })
 export default class RoutesView extends Component<any, any> {
   render() {
-    return <div className='view'>
+    return <div className='routes view'>
       <AppBar
         title='Выберите маршрут'
         iconElementLeft={<IconButton onTouchTap={() => this.props.dispatch({

@@ -7,13 +7,12 @@ import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import {MuiThemeProvider} from 'material-ui/styles'
 
 import configureStore from '../configureStore'
-
 import theme from '../styles/theme'
-import AppView from '../components/AppView/AppView'
-import MapView from '../components/MapView/MapView'
+
 import Shell from './Shell'
 // views
 import RoutesView from './RoutesView'
+import RouteView from './RouteView'
 import Settings from './Settings'
 import About from './About'
 
@@ -33,7 +32,7 @@ export default class App extends Component<any, any> {
           <Redirect from='/' to='/routes'/>
           <Route path='/' component={Shell}>
             <Route path='/routes' component={RoutesView}/>
-            <Route path='/routes/route/:route' component={MapView}/>
+            <Route path='/routes/route/:route' component={RouteView}/>
             <Route path='/routes/favorite' component={Dummy}/>
             <Route path='/settings' component={Settings}/>
             <Route path='/about' component={About}/>

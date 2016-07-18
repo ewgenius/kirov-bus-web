@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
+require('../../../src/components/Sidebar/Sidebar.scss')
 
 // components
 import AppBar from 'material-ui/AppBar'
@@ -14,21 +15,27 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 
 export default class Sidebar extends Component<{
   sidebarOpen: boolean
+  docked?: boolean
   onSidebarOpen: (open: boolean) => void
   onMenuSelect: (path: string) => void
 }, any> {
+  static defaultProps = {
+    docked: false
+  }
+
   render() {
     return <Drawer
+      className='sidebar'
       open={this.props.sidebarOpen}
-      docked={false}
+      docked={this.props.docked}
       onRequestChange={this.props.onSidebarOpen}>
       <AppBar showMenuIconButton={false} title='Где автобус?'/>
 
-      <MenuItem onTouchTap={() => this.props.onMenuSelect('/routes')} leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
-      <MenuItem onTouchTap={() => this.props.onMenuSelect('/routes/favorite')} leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
-      <MenuItem onTouchTap={() => this.props.onMenuSelect('/settings')} leftIcon={<ActionSettings />} primaryText='Настройки'/>
+      <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/routes')} leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
+      <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/routes/favorite')} leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
+      <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/settings')} leftIcon={<ActionSettings />} primaryText='Настройки'/>
       <Divider />
-      <MenuItem onTouchTap={() => this.props.onMenuSelect('/about')} primaryText='О приложении'/>
+      <MenuItem className='menu-item' onTouchTap={() => this.props.onMenuSelect('/about')} primaryText='О приложении'/>
     </Drawer>
   }
 }

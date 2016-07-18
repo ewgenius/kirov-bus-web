@@ -6,16 +6,20 @@ import {hashHistory} from 'react-router'
 
 import ui from './reducers/ui'
 import {UiState} from './reducers/ui'
+import routes from './reducers/routes'
+import {RoutesState} from './reducers/routes'
 
 const logger = createLogger()
 
 export interface State {
-  ui: UiState
+  ui: UiState,
+  routes: RoutesState,
 }
 
 export default () => {
   const store = createStore(combineReducers({
     ui,
+    routes,
     routing: routerReducer
   }), applyMiddleware(
     thunk,

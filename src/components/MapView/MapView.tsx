@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
+require('../../../src/components/MapView/MapView.scss')
 
 import * as mapboxgl from 'mapbox-gl'
 import {Map} from 'mapbox-gl'
@@ -8,10 +9,10 @@ const setkey = 'accessToken'
 mapboxgl[setkey] = 'pk.eyJ1IjoiZXdnZW5pdXMiLCJhIjoiY2lxZGRleXI1MDA2cWh1bWNsbDF3ODY1YiJ9.IWqlnxi93GGmiBbbDD8aZQ'
 
 export default class MapView extends Component<{
-  mapContainerId: string
-  styleUrl: string
+  mapContainerId?: string
+  styleUrl?: string
   center?: Array<number>
-  zoom: number
+  zoom?: number
 }, {
   center: Array<number>
 }> {
@@ -42,6 +43,7 @@ export default class MapView extends Component<{
       center: this.state.center,
       zoom: this.props.zoom
     })
+    setTimeout(() => this.map.resize(), 1)
   }
 
   getCurrentPosition(): Promise<{
@@ -61,11 +63,11 @@ export default class MapView extends Component<{
   }
 
   render() {
-    return <div className='map-view view'>
+    return <div className='map-view'>
       <div id={this.props.mapContainerId} style={{
         position: 'absolute',
         width: '100%',
-        height: '100%'
+        height: 'calc(100%- 20px)'
       }}/>
     </div>
   }
