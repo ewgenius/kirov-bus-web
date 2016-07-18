@@ -15,6 +15,7 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 export default class Sidebar extends Component<{
   sidebarOpen: boolean
   onSidebarOpen: (open: boolean) => void
+  onMenuSelect: (path: string) => void
 }, any> {
   render() {
     return <Drawer
@@ -23,11 +24,11 @@ export default class Sidebar extends Component<{
       onRequestChange={this.props.onSidebarOpen}>
       <AppBar showMenuIconButton={false} title='Где автобус?'/>
 
-      <MenuItem leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
-      <MenuItem leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
-      <MenuItem leftIcon={<ActionSettings />} primaryText='Настройки'/>
+      <MenuItem onTouchTap={() => this.props.onMenuSelect('/routes')} leftIcon={<ActionTimeline />} primaryText='Маршруты'/>
+      <MenuItem onTouchTap={() => this.props.onMenuSelect('/routes/favorite')} leftIcon={<ActionFavorite />} primaryText='Избранные маршруты'/>
+      <MenuItem onTouchTap={() => this.props.onMenuSelect('/settings')} leftIcon={<ActionSettings />} primaryText='Настройки'/>
       <Divider />
-      <MenuItem primaryText='О приложении'/>
+      <MenuItem onTouchTap={() => this.props.onMenuSelect('/about')} primaryText='О приложении'/>
     </Drawer>
   }
 }

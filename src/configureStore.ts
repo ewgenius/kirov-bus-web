@@ -1,6 +1,8 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import * as createLogger from 'redux-logger'
+import {routerReducer, routerMiddleware} from 'react-router-redux'
+import {hashHistory} from 'react-router'
 
 import ui from './reducers/ui'
 import {UiState} from './reducers/ui'
@@ -13,10 +15,12 @@ export interface State {
 
 export default () => {
   const store = createStore(combineReducers({
-    ui
+    ui,
+    routing: routerReducer
   }), applyMiddleware(
     thunk,
-    logger
+    logger,
+    routerMiddleware(hashHistory)
   ))
 
   return store

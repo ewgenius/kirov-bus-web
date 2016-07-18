@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 
 import {State} from '../configureStore'
 
@@ -25,24 +26,15 @@ interface ShellProps {
 export default class Shell extends Component<any, any> {
   render() {
     return <div className='shell view'>
-      <AppBar
-        title='Выберите маршрут'
-        iconElementLeft={<IconButton onTouchTap={() => this.props.dispatch({
-          type: 'SIDEBAR_OPEN'
-        })}><NavigationMenu/></IconButton>}
-        iconElementRight={<IconButton onTouchTap={() => {}}><NavigationRefresh/></IconButton>}
-        />
-
       <Sidebar
         sidebarOpen={this.props.sidebarOpen}
         onSidebarOpen={open => this.props.dispatch({
           type: open ? 'SIDEBAR_OPEN' : 'SIDEBAR_CLOSE'
         })}
+        onMenuSelect={path => this.props.dispatch(push(path))}
         />
 
-      <div className='content'>
-        {this.props.children}
-      </div>
+      {this.props.children}
     </div>
   }
 }

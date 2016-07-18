@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "storybook": "start-storybook -p 9001",
-    "serve": "webpack-dev-server --content-base dist/ -w -c --hot --inline --config webpack.config.dev.js"
+    "serve": "webpack-dev-server --content-base dist/ -w -c --host 0.0.0.0 --hot --inline --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "react-dom": "^15.2.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
+    "react-router-redux": "^4.0.5",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-actions": "^0.10.1",
