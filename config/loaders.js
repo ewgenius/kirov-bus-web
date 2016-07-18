@@ -1,10 +1,11 @@
 const path = require('path')
 
-module.exports = [{
+module.exports = [
+  /*{
   test: /\.js$/,
   include: path.resolve('node_modules/mapbox-gl-shaders/index.js'),
   loader: 'transform/cacheable?brfs'
-}, {
+},*/ {
   test: /\.jsx?$/,
   exclude: /(node_modules|bower_components)/,
   loader: 'babel',
