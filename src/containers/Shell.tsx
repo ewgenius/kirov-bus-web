@@ -31,7 +31,10 @@ export default class Shell extends Component<any, any> {
         onSidebarOpen={open => this.props.dispatch({
           type: open ? 'SIDEBAR_OPEN' : 'SIDEBAR_CLOSE'
         })}
-        onMenuSelect={path => this.props.dispatch(push(path))}
+        onMenuSelect={path => {
+          this.props.dispatch(push(path))
+          this.props.dispatch({type: 'SIDEBAR_CLOSE'})
+        }}
         />
 
       {this.props.children}
