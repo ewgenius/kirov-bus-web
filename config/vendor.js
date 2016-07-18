@@ -1,11 +1,16 @@
 module.exports = [
+  'immutable',
+  'mapbox-gl',
+  'material-ui',
+  'ramda',
   'react',
   'react-dom',
-  'react-router',
-  'redux',
   'react-redux',
-  'immutable',
-  'material-ui',
+  'react-router',
+  'react-router-redux',
   'react-tap-event-plugin',
-  'mapbox-gl'
+  'redux',
+  'redux-actions',
+  'redux-logger',
+  'redux-thunk'
 ]

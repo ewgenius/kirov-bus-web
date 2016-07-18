@@ -12,9 +12,10 @@ import theme from '../styles/theme'
 import AppView from '../components/AppView/AppView'
 import MapView from '../components/MapView/MapView'
 import Shell from './Shell'
-import About from './About'
-import Settings from './Settings'
+// views
 import RoutesView from './RoutesView'
+import Settings from './Settings'
+import About from './About'
 
 require('../../src/styles/main.scss')
 injectTapEventPlugin()
@@ -32,6 +33,7 @@ export default class App extends Component<any, any> {
           <Redirect from='/' to='/routes'/>
           <Route path='/' component={Shell}>
             <Route path='/routes' component={RoutesView}/>
+            <Route path='/routes/route/:route' component={MapView}/>
             <Route path='/routes/favorite' component={Dummy}/>
             <Route path='/settings' component={Settings}/>
             <Route path='/about' component={About}/>

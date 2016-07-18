@@ -21,6 +21,10 @@ html {
   height: calc(100% - #{$appBarHeight}px);
   overflow-x: hidden;
   overflow-y: auto;
+
+  &.padding {
+    padding: 16px;
+  }
 }
 
 @media (min-width: 768px) {
