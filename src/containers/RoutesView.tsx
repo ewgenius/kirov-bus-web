@@ -11,7 +11,7 @@ import {Route} from '../models/Route'
 import {
   requestRoutes,
   receiveRoutes,
-  selectRoute
+  requestRoute
 } from '../actions/routes'
 
 // components
@@ -37,7 +37,7 @@ class RoutesView extends Component<RoutesProps, any> {
   }
 
   selectRoute(route: Route) {
-    this.props.dispatch(selectRoute(route))
+    this.props.dispatch(requestRoute(route.route))
     this.props.dispatch(push(`/routes/route/${route.route}`))
   }
 

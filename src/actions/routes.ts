@@ -13,7 +13,7 @@ export const requestRoutes = () => dispatch => {
   })
   return dispatch({
     [CALL_API]: {
-      endpoint: '/api/v1/routes',
+      endpoint: '/api/v1/routes?limit=100',
       successType: RECEIVE_ROUTES,
       errorType: ERROR_ROUTES
     }

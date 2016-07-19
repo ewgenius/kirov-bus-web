@@ -12,6 +12,8 @@ import {Route} from '../../models/Route'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
+const palette: any = require('!!sass-variable-loader!../../../src/styles/_palette.scss')
+
 const setkey = 'accessToken'
 mapboxgl[setkey] = 'pk.eyJ1IjoiZXdnZW5pdXMiLCJhIjoiY2lxZGRleXI1MDA2cWh1bWNsbDF3ODY1YiJ9.IWqlnxi93GGmiBbbDD8aZQ'
 
@@ -46,6 +48,8 @@ export default class MapView extends Component<MapProps, MapState> {
   private map: Map
   private routeData: any
   private routeSource: GeoJSONSource
+  private stopsData: any
+  private stopsSource: GeoJSONSource
 
   constructor(props) {
     super(props)
@@ -86,6 +90,7 @@ export default class MapView extends Component<MapProps, MapState> {
       })
     })
       .then(() => {
+        // data
         this.routeData = {
           type: 'FeatureCollection',
           features: [{
@@ -97,18 +102,49 @@ export default class MapView extends Component<MapProps, MapState> {
           }]
         }
 
+        this.stopsData = {
+          type: 'FeatureCollection',
+          features: []
+        }
+
+        // sources
+
         this.routeSource = new GeoJSONSource({
           data: this.routeData
         })
 
+        this.stopsSource = new GeoJSONSource({
+          data: this.stopsData
+        })
+
         this.map.addSource('route', this.routeSource)
+        this.map.addSource('stops', this.stopsSource)
+
+        // layers
+
         this.map.addLayer({
           id: 'route',
           source: 'route',
           type: 'line',
           paint: {
-            'line-width': 2,
-            'line-color': '#00bbaa'
+            'line-width': 4,
+            'line-color': palette.colorAccent
+          }
+        })
+
+        this.map.addLayer({
+          id: 'stops',
+          source: 'stops',
+          type: 'symbol',
+          layout: {
+            'icon-image': 'bus-15',
+            'text-field': '{title}',
+            'text-offset': [0, 0.6],
+            'text-anchor': 'top'
+          },
+          paint: {
+            //'icon-color': palette.colorAccent,
+            //'text-color': palette.colorAccent            
           }
         })
       })
@@ -117,6 +153,18 @@ export default class MapView extends Component<MapProps, MapState> {
   renderRoute(route: Route) {
     this.routeData.features[0].geometry.coordinates = route.path.map(point => point.location)
     this.routeSource.setData(this.routeData)
+
+    this.stopsData.features = route.stops.map(stop => ({
+      type: 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': stop.location
+      },
+      'properties': {
+        'title': stop.name
+      }
+    }))
+    this.stopsSource.setData(this.stopsData)
   }
 
   getCurrentPosition(): Promise<{
