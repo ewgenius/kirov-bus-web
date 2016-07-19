@@ -1,8 +1,11 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 
 import {State} from '../configureStore'
+import {Route} from '../models/Route'
+
 
 // actions
 import {
@@ -32,6 +35,11 @@ class RoutesView extends Component<Props, any> {
     this.props.dispatch(requestRoutes())
   }
 
+  selectRoute(route: Route) {
+    this.props.dispatch(selectRoute(route))
+    this.props.dispatch(push(`/routes/route/${route.route}`))
+  }
+
   render() {
     const {loading, routes, route, dispatch} = this.props
 
@@ -52,7 +60,7 @@ class RoutesView extends Component<Props, any> {
           loading={loading}
           routes={routes}
           favorites={[]}
-          selectRoute={route => dispatch(selectRoute(route)) }
+          selectRoute={route => this.selectRoute(route) }
           setFavorite={() => { } }
           />
       </div>

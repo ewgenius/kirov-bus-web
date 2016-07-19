@@ -30,7 +30,6 @@ export default class RouteView extends Component<any, any> {
 
       <div className='content'>
         <MapView />
-        <div>test</div>
       </div>
     </div>
   }
