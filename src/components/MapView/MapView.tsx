@@ -6,7 +6,8 @@ import {set, lensProp} from 'ramda'
 import * as mapboxgl from 'mapbox-gl'
 import {
   Map,
-  GeoJSONSource
+  GeoJSONSource,
+  LngLat
 } from 'mapbox-gl'
 import {Route} from '../../models/Route'
 
@@ -18,6 +19,8 @@ const setkey = 'accessToken'
 mapboxgl[setkey] = 'pk.eyJ1IjoiZXdnZW5pdXMiLCJhIjoiY2lxZGRleXI1MDA2cWh1bWNsbDF3ODY1YiJ9.IWqlnxi93GGmiBbbDD8aZQ'
 
 interface MapProps {
+  width?: string | number,
+  height?: string | number,
   mapContainerId?: string
   styleUrl?: string
   center?: Array<number>
@@ -35,6 +38,8 @@ const lensLoading = lensProp('loading')
 
 export default class MapView extends Component<MapProps, MapState> {
   static defaultProps = {
+    width: '100%',
+    height: '100%',
     mapContainerId: 'map-container',
     styleUrl: 'mapbox://styles/mapbox/light-v9',
     zoom: 13
@@ -71,6 +76,12 @@ export default class MapView extends Component<MapProps, MapState> {
       )
     ) {
       this.renderRoute(nextProps.route)
+    }
+
+    if (this.props.center !== nextProps.center) {
+      this.map.jumpTo({
+        center: new LngLat(nextProps.center[0], nextProps.center[1]),
+      })
     }
   }
 
@@ -193,8 +204,8 @@ export default class MapView extends Component<MapProps, MapState> {
       </div> : null }
       <div id={this.props.mapContainerId} style={{
         position: 'absolute',
-        width: '100%',
-        height: '100%'
+        width: this.props.width,
+        height: this.props.height
       }}/>
     </div>
   }

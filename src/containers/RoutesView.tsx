@@ -6,7 +6,6 @@ import {push} from 'react-router-redux'
 import {State} from '../configureStore'
 import {Route} from '../models/Route'
 
-
 // actions
 import {
   requestRoutes,

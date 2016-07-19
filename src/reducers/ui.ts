@@ -3,17 +3,22 @@ import {handleActions, Action} from 'redux-actions'
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
-  SIDEBAR_TOGGLE
+  STOPSBAR_OPEN,
+  STOPSAR_CLOSE
 } from '../actions/ui'
 
 export type UiState = {
   sidebarOpen: boolean
+  stopsBarOpen: boolean
 }
 
 const lensSidebar = lensProp('sidebarOpen')
+const lensStopsBar = lensProp('stopsBarOpen')
+
 
 const uiState: UiState = {
-  sidebarOpen: false
+  sidebarOpen: false,
+  stopsBarOpen: false
 }
 
 export default handleActions<UiState, any>({
@@ -23,7 +28,10 @@ export default handleActions<UiState, any>({
   [SIDEBAR_CLOSE]: (state: UiState, action: Action<any>): UiState => {
     return set(lensSidebar, false, state)
   },
-  [SIDEBAR_TOGGLE]: (state: UiState, action: Action<any>): UiState => {
-    return set(lensSidebar, !state.sidebarOpen, state)
+  [STOPSBAR_OPEN]: (state: UiState, action: Action<any>): UiState => {
+    return set(lensStopsBar, true, state)
+  },
+  [STOPSAR_CLOSE]: (state: UiState, action: Action<any>): UiState => {
+    return set(lensStopsBar, false, state)
   }
 }, uiState)
