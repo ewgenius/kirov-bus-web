@@ -23,16 +23,17 @@ import RoutesList from '../components/RoutesList/RoutesList'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
-interface Props {
+interface RoutesProps {
   loading: boolean
   routes: Array<any>
   route: any
   dispatch: any
 }
 
-class RoutesView extends Component<Props, any> {
+class RoutesView extends Component<RoutesProps, any> {
   componentDidMount() {
-    this.props.dispatch(requestRoutes())
+    if (!this.props.routes || this.props.routes.length === 0)
+      this.props.dispatch(requestRoutes())
   }
 
   selectRoute(route: Route) {

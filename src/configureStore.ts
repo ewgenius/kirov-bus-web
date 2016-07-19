@@ -26,8 +26,8 @@ export default () => {
   }), applyMiddleware(
     api,
     thunk,
-    routerMiddleware(hashHistory),
-    logger
+    routerMiddleware(hashHistory)
+    //logger
   ))
 
   return store

@@ -1,10 +1,14 @@
 import * as React from 'react'
-import {Component, PropTypes} from 'react'
+import {Component} from 'react'
 require('../../../src/components/MapView/MapView.scss')
 
 import {set, lensProp} from 'ramda'
 import * as mapboxgl from 'mapbox-gl'
-import {Map} from 'mapbox-gl'
+import {
+  Map,
+  GeoJSONSource
+} from 'mapbox-gl'
+import {Route} from '../../models/Route'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
@@ -16,6 +20,8 @@ interface MapProps {
   styleUrl?: string
   center?: Array<number>
   zoom?: number
+
+  route?: Route
 }
 
 interface MapState {
@@ -33,11 +39,13 @@ export default class MapView extends Component<MapProps, MapState> {
   }
 
   state = {
-    center: [49.6907981, 58.577939],
+    center: [49.6667983, 58.6035321],
     loading: true
   }
 
   private map: Map
+  private routeData: any
+  private routeSource: GeoJSONSource
 
   constructor(props) {
     super(props)
@@ -45,6 +53,21 @@ export default class MapView extends Component<MapProps, MapState> {
 
   componentDidMount() {
     this.initMap()
+      .then(() => {
+        if (this.props.route)
+          this.renderRoute(this.props.route)
+      })
+  }
+
+  componentWillReceiveProps(nextProps: MapProps) {
+    if (
+      !this.state.loading && (
+        !this.props.route && nextProps.route ||
+        this.props.route && this.props.route.route !== nextProps.route.route
+      )
+    ) {
+      this.renderRoute(nextProps.route)
+    }
   }
 
   initMap() {
@@ -54,10 +77,46 @@ export default class MapView extends Component<MapProps, MapState> {
       center: this.state.center,
       zoom: this.props.zoom
     })
-    this.map.on('load', () => {
-      this.setState(set(lensLoading, false, this.state))
+
+    return new Promise(resolve => {
+      this.map.on('load', () => {
+        this.setState(set(lensLoading, false, this.state))
+        this.map.resize()
+        resolve(this.map)
+      })
     })
-    setTimeout(() => this.map.resize(), 1)
+      .then(() => {
+        this.routeData = {
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: []
+            }
+          }]
+        }
+
+        this.routeSource = new GeoJSONSource({
+          data: this.routeData
+        })
+
+        this.map.addSource('route', this.routeSource)
+        this.map.addLayer({
+          id: 'route',
+          source: 'route',
+          type: 'line',
+          paint: {
+            'line-width': 2,
+            'line-color': '#00bbaa'
+          }
+        })
+      })
+  }
+
+  renderRoute(route: Route) {
+    this.routeData.features[0].geometry.coordinates = route.path.map(point => point.location)
+    this.routeSource.setData(this.routeData)
   }
 
   getCurrentPosition(): Promise<{
@@ -70,8 +129,8 @@ export default class MapView extends Component<MapProps, MapState> {
           resolve(position.coords)
         })
       else resolve({
-        latitude: 58.577939,
-        longitude: 49.6907981
+        latitude: 58.6035321,
+        longitude: 49.6667983
       })
     })
   }
