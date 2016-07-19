@@ -1,6 +1,8 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
+import * as promise from 'redux-promise'
 import * as createLogger from 'redux-logger'
+import api from './middleware/api'
 import {routerReducer, routerMiddleware} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 
@@ -22,9 +24,10 @@ export default () => {
     routes,
     routing: routerReducer
   }), applyMiddleware(
+    api,
     thunk,
-    logger,
-    routerMiddleware(hashHistory)
+    routerMiddleware(hashHistory),
+    logger
   ))
 
   return store

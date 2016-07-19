@@ -18,6 +18,7 @@
     "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116",
     "redux-logger": "registry:dt/redux-logger#2.6.0+20160619033847",
+    "redux-promise": "registry:dt/redux-promise#0.5.3+20160703120921",
     "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921",
     "require": "registry:dt/require#2.1.20+20160316155526",
     "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160524142046"

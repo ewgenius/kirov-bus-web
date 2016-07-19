@@ -18,30 +18,31 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 interface ShellProps {
-  sidebarOpen: boolean
+  sidebarOpen: boolean,
+  dispath: (any) => any 
 }
 
-@connect((state: State): ShellProps => {
-  return {
-    sidebarOpen: state.ui.sidebarOpen
-  }
-})
-export default class Shell extends Component<any, any> {
-
+class Shell extends Component<ShellProps, any> {
   render() {
     const {dispatch} = this.props
 
     return <div className='shell view'>
       <Sidebar
         sidebarOpen={this.props.sidebarOpen}
-        onSidebarOpen={open => dispatch(open ? sidebarOpen() : sidebarClose())}
+        onSidebarOpen={open => dispatch(open ? sidebarOpen() : sidebarClose()) }
         onMenuSelect={path => {
           dispatch(push(path))
           dispatch(sidebarClose())
-        }}
+        } }
         />
 
       {this.props.children}
     </div>
   }
 }
+
+export default connect((state: State) => {
+  return {
+    sidebarOpen: state.ui.sidebarOpen
+  }
+})(Shell)

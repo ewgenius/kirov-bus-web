@@ -83,7 +83,11 @@ class AppView extends Component<{
         iconElementRight={<IconButton onTouchTap={() => this.load()}><NavigationRefresh/></IconButton>}
         />
 
-      <Sidebar sidebarOpen={this.props.sidebarOpen} onSidebarOpen={open => this.openSidebar(open)}/>
+      <Sidebar
+        sidebarOpen={this.props.sidebarOpen}
+        onSidebarOpen={open => this.openSidebar(open)}
+        onMenuSelect={() => {}}
+        />
 
       <div className='content'>
         <RoutesList

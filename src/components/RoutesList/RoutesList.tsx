@@ -23,6 +23,7 @@ export default class RoutesList extends Component<{
   favorites: Array<string>
   loading: boolean
   setFavorite: (id, favorite) => void
+  selectRoute: (any) => void
 }, {}> {
   render() {
     const {routes, loading, favorites} = this.props
@@ -47,6 +48,7 @@ export default class RoutesList extends Component<{
             }
             primaryText={`№${route.routeNumber}`}
             secondaryText={routeType(route.routeType)}
+            onTouchTap={() => this.props.selectRoute(route)}
           />
         })
       }

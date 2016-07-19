@@ -5,7 +5,11 @@ import {connect} from 'react-redux'
 import {State} from '../configureStore'
 
 // actions
-import {requestRoutes} from '../actions/routes'
+import {
+  requestRoutes,
+  receiveRoutes,
+  selectRoute
+} from '../actions/routes'
 
 // components
 import AppBar from 'material-ui/AppBar'
@@ -19,21 +23,18 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 interface Props {
   loading: boolean
   routes: Array<any>
+  route: any
   dispatch: any
 }
 
-@connect((state: State): Props => {
-  return {
-    loading: state.routes.loading,
-    routes: state.routes.routes
-  }
-})
-export default class RoutesView extends Component<Props, any> {
+class RoutesView extends Component<Props, any> {
   componentDidMount() {
     this.props.dispatch(requestRoutes())
   }
 
   render() {
+    const {loading, routes, route, dispatch} = this.props
+
     return <div className='routes view'>
       <AppBar
         title='Выберите маршрут'
@@ -42,18 +43,27 @@ export default class RoutesView extends Component<Props, any> {
         }}
         iconElementLeft={<IconButton onTouchTap={() => this.props.dispatch({
           type: 'SIDEBAR_OPEN'
-        })}><NavigationMenu/></IconButton>}
-        iconElementRight={<IconButton onTouchTap={() => {}}><NavigationRefresh/></IconButton>}
+        }) }><NavigationMenu/></IconButton>}
+        iconElementRight={<IconButton onTouchTap={() => { } }><NavigationRefresh/></IconButton>}
         />
 
       <div className='content'>
         <RoutesList
-          loading={this.props.loading}
-          routes={this.props.routes}
+          loading={loading}
+          routes={routes}
           favorites={[]}
-          setFavorite={() => {}}
+          selectRoute={route => dispatch(selectRoute(route)) }
+          setFavorite={() => { } }
           />
       </div>
     </div>
   }
 }
+
+export default connect((state: State) => {
+  return {
+    loading: state.routes.loading,
+    routes: state.routes.routes,
+    route: state.routes.route,
+  }
+})(RoutesView)

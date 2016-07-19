@@ -25,5 +25,12 @@ const routesState: RoutesState = {
 export default handleActions<RoutesState, any>({
   [REQUEST_ROUTES]: (state: RoutesState, action: Action<any>): RoutesState => {
     return set(lensLoading, true, state)
+  },
+  [RECEIVE_ROUTES]: (state: RoutesState, action: Action<any>): RoutesState => {
+    return set(lensLoading, false,
+      set(lensRoutes, action.payload, state))
+  },
+  [SELECT_ROUTE]: (state: RoutesState, action: Action<any>): RoutesState => {
+    return set(lensRoute, action.payload, state)
   }
 }, routesState)
