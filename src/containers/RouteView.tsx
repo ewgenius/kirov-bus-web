@@ -14,6 +14,7 @@ import {stopsBarOpen, stopsBarClose} from '../actions/ui'
 // components
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 import IconButton from 'material-ui/IconButton'
 import MapView from '../components/MapView/MapView'
 import StopsList from '../components/StopsList/StopsList'
@@ -21,6 +22,7 @@ import StopsList from '../components/StopsList/StopsList'
 //icons
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'
+import MyLocation from 'material-ui/svg-icons/maps/my-location'
 
 interface RoutesProps {
   showStopsBar: boolean
@@ -35,7 +37,8 @@ interface RoutesProps {
 
 class RouteView extends Component<any, any> {
   state = {
-    center: null
+    center: null,
+    geoAllowed: true
   }
 
   componentDidMount() {
@@ -51,6 +54,21 @@ class RouteView extends Component<any, any> {
     if (this.props.params.route !== nextProps.params.route) {
       this.props.dispatch(requestRoute(nextProps.params.route))
     }
+  }
+
+  getCurrentPosition() {
+    return new Promise(resolve => {
+      if (navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(position => {
+          resolve(position.coords)
+          this.setState({
+            center: [position.coords.longitude, position.coords.latitude]
+          })
+        })
+      else this.setState({
+        geoAllowed: false
+      })
+    })
   }
 
   render() {
@@ -79,6 +97,18 @@ class RouteView extends Component<any, any> {
           route={this.props.route}
           center={this.state.center}
           />
+
+        {
+          this.state.geoAllowed ? <FloatingActionButton style={{
+            position: 'fixed',
+            right: 16,
+            bottom: 16
+          }}
+            onTouchTap={() => this.getCurrentPosition() }
+            >
+            <MyLocation />
+          </FloatingActionButton> : null
+        }
 
         <Drawer
           open={this.props.showStopsBar}

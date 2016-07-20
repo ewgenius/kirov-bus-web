@@ -178,22 +178,6 @@ export default class MapView extends Component<MapProps, MapState> {
     this.stopsSource.setData(this.stopsData)
   }
 
-  getCurrentPosition(): Promise<{
-    latitude: number
-    longitude: number
-  }> {
-    return new Promise(resolve => {
-      if (navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(position => {
-          resolve(position.coords)
-        })
-      else resolve({
-        latitude: 58.6035321,
-        longitude: 49.6667983
-      })
-    })
-  }
-
   render() {
     return <div className='map-view'>
       { this.state.loading ? <div className='overlay-loading'>
