@@ -36,7 +36,7 @@ export default class MapEditor extends Component<MapProps, MapState> {
     width: '100%',
     height: '100%',
     mapContainerId: 'map-container',
-    styleUrl: 'mapbox://styles/mapbox/light-v9',
+    styleUrl: 'mapbox://styles/mapbox/dark-v9',
     zoom: 13,
     showStops: true
   }

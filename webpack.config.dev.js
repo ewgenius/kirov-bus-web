@@ -6,12 +6,12 @@ var postLoaders = require('./config/postLoaders')
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', path.resolve('./.temp/app.js')],
+    app: ['babel-polyfill', './.temp/app.js'],
     vendor
   },
   output: {
-    path: path.resolve('./dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].js',
+    path: './dist'
   },
   resolve: {
     alias: {

@@ -9,7 +9,7 @@ module.exports = {
     vendor
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: './build'
   },
   resolve: {
