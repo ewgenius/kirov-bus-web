@@ -51,7 +51,9 @@ gulp.task('icons', () => {
 })
 
 gulp.task('manifest', cb => {
-  fs.writeFile('./build/manifest.json', JSON.stringify(manifest, null, 2), cb)
+  fs.writeFile('./build/manifest.json', JSON.stringify(manifest, null, 2), () => {
+    fs.writeFile('./dist/manifest.json', JSON.stringify(manifest, null, 2), cb)
+  })
 })
 
 gulp.task('bundle', ['markup', 'icons', 'manifest'], cb => {

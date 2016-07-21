@@ -74,7 +74,6 @@ class Editor extends Component<EditorProps, any> {
 
       <div className='content toolbar'>
         <MapEditor
-          editable={true}
           route={this.props.route}
           />
       </div>

@@ -20,8 +20,6 @@ interface MapProps {
   styleUrl?: string
   center?: Array<number>
   zoom?: number
-  showStops?: boolean
-  editable?: boolean
 
   route?: Route
 }
@@ -55,6 +53,8 @@ export default class MapEditor extends Component<MapProps, MapState> {
   private routeSource: GeoJSONSource
   private stopsData: any
   private stopsSource: GeoJSONSource
+  private isOverPoint: boolean = false
+  private dragging: boolean = false
 
   constructor(props) {
     super(props)
@@ -153,73 +153,78 @@ export default class MapEditor extends Component<MapProps, MapState> {
           }
         })
 
-        if (this.props.showStops)
-          this.map.addLayer({
-            id: 'stops',
-            source: 'stops',
-            type: 'symbol',
-            layout: {
-              'icon-image': 'bus-15',
-              'text-field': '{title}',
-              'text-offset': [0, 0.6],
-              'text-anchor': 'top'
-            },
-            paint: {
-              //'icon-color': palette.colorAccent,
-              //'text-color': palette.colorAccent            
-            }
+        this.map.addLayer({
+          id: 'stops',
+          source: 'stops',
+          type: 'symbol',
+          layout: {
+            'icon-image': 'bus-15',
+            'text-field': '{title}',
+            'text-offset': [0, 0.6],
+            'text-anchor': 'top'
+          },
+          paint: {
+            //'icon-color': palette.colorAccent,
+            //'text-color': palette.colorAccent            
+          }
+        })
+
+        this.map.addLayer({
+          'id': 'points',
+          'type': 'circle',
+          'source': 'points',
+          'paint': {
+            'circle-radius': 10,
+            'circle-color': palette.colorAccent
+          }
+        })
+
+        this.map.on('mousedown', event => {
+          if (this.isOverPoint) {
+            this.dragging = true
+          }
+        })
+
+        this.map.on('mouseup', event => {
+          this.dragging = false
+        })
+
+        this.map.on('mousemove', event => {
+          const features = this.map.queryRenderedFeatures(event.point, {
+            layers: ['points']
           })
 
-        if (this.props.editable) {
-          this.map.addLayer({
-            'id': 'points',
-            'type': 'circle',
-            'source': 'points',
-            'paint': {
-              'circle-radius': 10,
-              'circle-color': '{color}'
+          if (features.length) {
+            this.isOverPoint = true
+            if (this.dragging) {
+              this.map['dragPan'].disable()
+              features[0].geometry.coordinates = [event.lngLat.lng, event.lngLat.lat]
             }
-          })
+          } else {
+            this.isOverPoint = false
+            this.map['dragPan'].enable()
+            //this.map.setPaintProperty('point', 'circle-color', '#3887be')
+            //canvas.style.cursor = '';
+            //isCursorOverPoint = false;
+            //map.dragPan.enable();
+          }
+        })
 
-          this.map.on('mousemove', event => {
-            const features = this.map.queryRenderedFeatures(event.point, {
-              layers: ['points']
-            })
-
-            if (features.length) {
-              features.map(feature => {
-                feature.properties.color = '#0f0'
-                //this.map.setPaintProperty()
-              })
-              //this.map.setPaintProperty('point', 'circle-color', '#3bb2d0')
-              //canvas.style.cursor = 'move';
-              //isCursorOverPoint = true;
-              //this.map.dragPan.disable();
-            } else {
-              //this.map.setPaintProperty('point', 'circle-color', '#3887be')
-              //canvas.style.cursor = '';
-              //isCursorOverPoint = false;
-              //map.dragPan.enable();
-            }
-          })
-        }
       })
   }
 
   renderRoute(route: Route) {
-    if (this.props.editable) {
-      this.pointsData.features = route.path.map(point => ({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: point.location
-        },
-        properties: {
-          color: '#f00'
-        }
-      }))
-      this.pointsSource.setData(this.pointsData)
-    }
+    this.pointsData.features = route.path.map(point => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: point.location
+      },
+      properties: {
+        color: '#f00'
+      }
+    }))
+    this.pointsSource.setData(this.pointsData)
 
     this.routeData.features[0].geometry.coordinates = route.path.map(point => point.location)
     this.routeSource.setData(this.routeData)
