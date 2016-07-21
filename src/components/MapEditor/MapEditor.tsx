@@ -20,6 +20,8 @@ interface MapProps {
   styleUrl?: string
   center?: Array<number>
   zoom?: number
+  showStops?: boolean
+  editable?: boolean
 
   route?: Route
 }
@@ -31,13 +33,14 @@ interface MapState {
 
 const lensLoading = lensProp('loading')
 
-export default class MapView extends Component<MapProps, MapState> {
+export default class MapEditor extends Component<MapProps, MapState> {
   static defaultProps = {
     width: '100%',
     height: '100%',
     mapContainerId: 'map-container',
     styleUrl: 'mapbox://styles/mapbox/light-v9',
-    zoom: 13
+    zoom: 13,
+    showStops: true
   }
 
   state = {
@@ -46,6 +49,8 @@ export default class MapView extends Component<MapProps, MapState> {
   }
 
   private map: Map
+  private pointsData: any
+  private pointsSource: GeoJSONSource
   private routeData: any
   private routeSource: GeoJSONSource
   private stopsData: any
@@ -97,6 +102,11 @@ export default class MapView extends Component<MapProps, MapState> {
     })
       .then(() => {
         // data
+        this.pointsData = {
+          type: 'FeatureCollection',
+          features: []
+        }
+
         this.routeData = {
           type: 'FeatureCollection',
           features: [{
@@ -115,6 +125,10 @@ export default class MapView extends Component<MapProps, MapState> {
 
         // sources
 
+        this.pointsSource = new GeoJSONSource({
+          data: this.pointsData
+        })
+
         this.routeSource = new GeoJSONSource({
           data: this.routeData
         })
@@ -123,6 +137,7 @@ export default class MapView extends Component<MapProps, MapState> {
           data: this.stopsData
         })
 
+        this.map.addSource('points', this.pointsSource)
         this.map.addSource('route', this.routeSource)
         this.map.addSource('stops', this.stopsSource)
 
@@ -138,43 +153,92 @@ export default class MapView extends Component<MapProps, MapState> {
           }
         })
 
-        this.map.addLayer({
-          id: 'stops',
-          source: 'stops',
-          type: 'symbol',
-          layout: {
-            'icon-image': 'bus-15',
-            'text-field': '{title}',
-            'text-offset': [0, 0.6],
-            'text-anchor': 'top'
-          },
-          paint: {
-            //'icon-color': palette.colorAccent,
-            //'text-color': palette.colorAccent            
-          }
-        })
+        if (this.props.showStops)
+          this.map.addLayer({
+            id: 'stops',
+            source: 'stops',
+            type: 'symbol',
+            layout: {
+              'icon-image': 'bus-15',
+              'text-field': '{title}',
+              'text-offset': [0, 0.6],
+              'text-anchor': 'top'
+            },
+            paint: {
+              //'icon-color': palette.colorAccent,
+              //'text-color': palette.colorAccent            
+            }
+          })
+
+        if (this.props.editable) {
+          this.map.addLayer({
+            'id': 'points',
+            'type': 'circle',
+            'source': 'points',
+            'paint': {
+              'circle-radius': 10,
+              'circle-color': '{color}'
+            }
+          })
+
+          this.map.on('mousemove', event => {
+            const features = this.map.queryRenderedFeatures(event.point, {
+              layers: ['points']
+            })
+
+            if (features.length) {
+              features.map(feature => {
+                feature.properties.color = '#0f0'
+                //this.map.setPaintProperty()
+              })
+              //this.map.setPaintProperty('point', 'circle-color', '#3bb2d0')
+              //canvas.style.cursor = 'move';
+              //isCursorOverPoint = true;
+              //this.map.dragPan.disable();
+            } else {
+              //this.map.setPaintProperty('point', 'circle-color', '#3887be')
+              //canvas.style.cursor = '';
+              //isCursorOverPoint = false;
+              //map.dragPan.enable();
+            }
+          })
+        }
       })
   }
 
   renderRoute(route: Route) {
+    if (this.props.editable) {
+      this.pointsData.features = route.path.map(point => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: point.location
+        },
+        properties: {
+          color: '#f00'
+        }
+      }))
+      this.pointsSource.setData(this.pointsData)
+    }
+
     this.routeData.features[0].geometry.coordinates = route.path.map(point => point.location)
     this.routeSource.setData(this.routeData)
 
     this.stopsData.features = route.stops.map(stop => ({
       type: 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': stop.location
+      geometry: {
+        type: 'Point',
+        coordinates: stop.location
       },
-      'properties': {
-        'title': stop.name
+      properties: {
+        title: stop.name
       }
     }))
     this.stopsSource.setData(this.stopsData)
   }
 
   render() {
-    return <div className='map-view view'>
+    return <div className='map-editor view'>
       { this.state.loading ? <div className='overlay-loading'>
         <CircularProgress style={{
           display: 'block',

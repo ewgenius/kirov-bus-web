@@ -61,7 +61,10 @@ class RoutesView extends Component<RoutesProps, any> {
           routes={routes}
           favorites={[]}
           selectRoute={route => this.selectRoute(route) }
-          setFavorite={() => { } }
+          setFavorite={route => {
+            this.props.dispatch(requestRoute(route.route))
+            this.props.dispatch(push(`/editor/${route.route}`))
+          } }
           />
       </div>
     </div>

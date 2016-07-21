@@ -42,7 +42,7 @@ export default class RoutesList extends Component<{
             key={i}
             leftIcon={<DirectionsBus />}
             rightIconButton={
-              <IconButton onTouchTap={() => this.props.setFavorite(route._id, !isFavorite)}>
+              <IconButton onTouchTap={() => this.props.setFavorite(route, !isFavorite)}>
                 <ActionsStars color={isFavorite ? palette.colorAccent : ''}/>
               </IconButton>
             }
