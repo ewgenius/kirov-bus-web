@@ -6,12 +6,12 @@ import {push} from 'react-router-redux'
 import {State} from '../configureStore'
 
 // actions
-import {sidebarOpen, sidebarClose} from '../actions/ui'
+import {sidebarOpen, sidebarClose} from '../actions/ui.ts'
 
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import Sidebar from '../components/Sidebar/Sidebar'
+import Sidebar from '../components/Sidebar/Sidebar.tsx'
 
 //icons
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
@@ -19,7 +19,7 @@ import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 interface ShellProps {
   sidebarOpen: boolean,
-  dispath: (any) => any 
+  dispath: (any) => any
 }
 
 class Shell extends Component<ShellProps, any> {

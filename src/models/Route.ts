@@ -1,4 +1,4 @@
-import {Stop} from './Stop'
+import {Stop} from './Stop.ts'
 
 export interface Route {
   _id: string

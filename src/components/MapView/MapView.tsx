@@ -11,7 +11,7 @@ import {Route} from '../../models/Route'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
-const palette: any = require('!!sass-variable-loader!../../../src/styles/_palette.scss')
+const palette: any = require('!!sass-variable-loader!../../styles/_palette.scss')
 
 interface MapProps {
   width?: string | number,
@@ -150,7 +150,7 @@ export default class MapView extends Component<MapProps, MapState> {
           },
           paint: {
             //'icon-color': palette.colorAccent,
-            //'text-color': palette.colorAccent            
+            //'text-color': palette.colorAccent
           }
         })
       })

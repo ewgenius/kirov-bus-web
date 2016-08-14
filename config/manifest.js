@@ -1,39 +1,39 @@
 module.exports = {
-  "name": "Где автобус?",
-  "short_name": "Где автобус?",
-  "icons": [{
-    "src": "/icons/icon_36.png",
+  name: 'Где автобус',
+  short_name: 'Где автобус',
+  start_url: '/',
+  icons: [{
+    "src": "/assets/icons/icon_36.png",
     "sizes": "36x36",
     "type": "image/png",
     "density": "0.75"
   }, {
-    "src": "/icons/icon_48.png",
+    "src": "/assets/icons/icon_48.png",
     "sizes": "48x48",
     "type": "image/png",
     "density": "1.0"
   }, {
-    "src": "/icons/icon_72.png",
+    "src": "/assets/icons/icon_72.png",
     "sizes": "72x72",
     "type": "image/png",
     "density": "1.5"
   }, {
-    "src": "/icons/icon_96.png",
+    "src": "/assets/icons/icon_96.png",
     "sizes": "96x96",
     "type": "image/png",
     "density": "2.0"
   }, {
-    "src": "/icons/icon_144.png",
+    "src": "/assets/icons/icon_144.png",
     "sizes": "144x144",
     "type": "image/png",
     "density": "3.0"
   }, {
-    "src": "/icons/icon_192.png",
+    "src": "/assets/icons/icon_192.png",
     "sizes": "192x192",
     "type": "image/png",
     "density": "4.0"
   }],
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#37474f",
-  "theme_color": "#263238"
+  display: 'standalone',
+  theme_color: '#263238',
+  background_color: '#37474f'
 }

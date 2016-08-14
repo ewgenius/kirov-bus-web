@@ -4,7 +4,7 @@ import {
   REQUEST_ROUTE,
   RECEIVE_ROUTES,
   SELECT_ROUTE
-} from '../actions/routes'
+} from '../actions/routes.ts'
 import {set, lensProp} from 'ramda'
 
 export type RoutesState = {

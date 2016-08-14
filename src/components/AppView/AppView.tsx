@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-require('../../../src/components/AppView/AppView.scss')
+import './AppView.scss'
 
 // components
 import AppBar from 'material-ui/AppBar'
@@ -9,7 +9,7 @@ import {List, ListItem} from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import RoutesList from '../RoutesList/RoutesList'
-import Sidebar from '../Sidebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar.tsx'
 
 //icons
 import DirectionsBus from 'material-ui/svg-icons/maps/directions-bus'

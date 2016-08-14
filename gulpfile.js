@@ -1,67 +1,62 @@
-const fs = require('fs')
 const gulp = require('gulp')
-const gutil = require('gutil')
-const jade = require('gulp-jade')
+const gutil = require('gulp-util')
+const pug = require('gulp-pug')
+const file = require('gulp-file')
+//const ts = require('gulp-typescript')
 const webpack = require('webpack')
-
 const WebpackDevServer = require('webpack-dev-server')
-const webpackDevConfig = require('./webpack.config.dev.js')
-const webpackProdConfig = require('./webpack.config.prod.js')
 
-const manifest = require('./src/manifest.js')
+const webpackConfigDev = require('./config/webpack.config.dev')
+const webpackConfigProd = require('./config/webpack.config.prod')
+const manifest = require('./config/manifest')
 
-const appName = manifest.name
-const backgroundColor = manifest.background_color
-const themeColor = manifest.theme_color
+const BUILD_PATH = './build'
+const SRC_PATH = './src'
 
-gulp.task('serve', () => {
-  new WebpackDevServer(webpack(webpackDevConfig), {
-      hot: true,
-      contentBase: 'dist',
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-      },
-      stats: {
-        colors: true
-      }
-    })
-    .listen(8080, 'localhost', err => {
-      if (err) throw new gutil.PluginError('webpack-dev-server', err);
-      gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html')
-    })
-})
-
-gulp.task('markup', () => {
-  gulp.src('./src/index.jade')
-    .pipe(jade({
+gulp.task('pug', () => {
+  return gulp.src(`${SRC_PATH}/index.pug`)
+    .pipe(pug({
       locals: {
-        title: appName,
-        themeColor: themeColor
+        title: manifest.name,
+        theme_color: manifest.theme_color
       }
     }))
-    .pipe(gulp.dest('./build'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(BUILD_PATH))
 })
 
-gulp.task('icons', () => {
-  gulp.src('./src/assets/icons/*')
-    .pipe(gulp.dest('./build/icons'))
-    .pipe(gulp.dest('./dist/icons'))
+gulp.task('manifest', () => {
+  return file('manifest.json', JSON.stringify(manifest, null, 2))
+    .pipe(gulp.dest(BUILD_PATH))
 })
 
-gulp.task('manifest', cb => {
-  fs.writeFile('./build/manifest.json', JSON.stringify(manifest, null, 2), () => {
-    fs.writeFile('./dist/manifest.json', JSON.stringify(manifest, null, 2), cb)
-  })
+gulp.task('assets', () => {
+  return gulp.src('./assets/icons/**/*')
+    .pipe(gulp.dest(`${BUILD_PATH}/assets/icons`))
 })
 
-gulp.task('bundle', ['markup', 'icons', 'manifest'], cb => {
-  return webpack(webpackProdConfig, (err, stats) => {
-    if (err) throw new gutil.PluginError("webpack", err)
-    gutil.log("[webpack]", stats.toString({}))
+gulp.task('webpack', cb => {
+  webpack(webpackConfigProd, (err, stats) => {
+    if (err) throw new gutil.PluginError('webpack', err)
+    gutil.log('[webpack]', stats.toString())
     cb()
   })
 })
 
-gulp.task('default', ['markup', 'icons', 'manifest'])
+gulp.task('serve', () => {
+  const compiler = webpack(webpackConfigDev)
+
+  const server = new WebpackDevServer(compiler, {
+    contentBase: BUILD_PATH,
+    hot: true,
+    stats: {
+      colors: true
+    }
+  })
+
+  server.listen(8080, 'localhost', err => {
+    if (err) throw new gutil.PluginError('webpack-dev-server', err)
+    gutil.log('[webpack-dev-server]', 'http://localhost:8080')
+  })
+})
+
+gulp.task('default', ['pug', 'assets', 'manifest', 'serve'])

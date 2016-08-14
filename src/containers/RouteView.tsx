@@ -3,21 +3,21 @@ import {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 
-import {State} from '../configureStore'
-import {Route} from '../models/Route'
-import {Stop} from '../models/Stop'
+import {State} from '../configureStore.ts'
+import {Route} from '../models/Route.ts'
+import {Stop} from '../models/Stop.ts'
 
 // actions
-import {requestRoute} from '../actions/routes'
-import {stopsBarOpen, stopsBarClose} from '../actions/ui'
+import {requestRoute} from '../actions/routes.ts'
+import {stopsBarOpen, stopsBarClose} from '../actions/ui.ts'
 
 // components
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import IconButton from 'material-ui/IconButton'
-import MapView from '../components/MapView/MapView'
-import StopsList from '../components/StopsList/StopsList'
+import MapView from '../components/MapView/MapView.tsx'
+import StopsList from '../components/StopsList/StopsList.tsx'
 
 //icons
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'

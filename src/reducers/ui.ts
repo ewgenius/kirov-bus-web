@@ -5,7 +5,7 @@ import {
   SIDEBAR_CLOSE,
   STOPSBAR_OPEN,
   STOPSAR_CLOSE
-} from '../actions/ui'
+} from '../actions/ui.ts'
 
 export type UiState = {
   sidebarOpen: boolean

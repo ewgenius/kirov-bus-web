@@ -1,21 +1,17 @@
-var webpack = require('webpack')
-var loaders = require('./config/loaders')
-var vendor = require('./config/vendor')
-var postLoaders = require('./config/postLoaders')
+const path = require('path')
+const webpack = require('webpack')
+const loaders = require('./loaders')
+const vendor = require('./vendor')
+const postLoaders = require('./postLoaders')
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', './.temp/app.js'],
+    app: ['babel-polyfill', './src/app.tsx'],
     vendor
   },
   output: {
-    filename: '[name].js',
-    path: './build'
-  },
-  resolve: {
-    alias: {
-      'webworkify': 'webworkify-webpack'
-    }
+    filename: '[name].bundle.js',
+    path: path.resolve('./build')
   },
   module: {
     loaders,

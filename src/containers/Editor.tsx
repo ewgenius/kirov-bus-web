@@ -3,19 +3,19 @@ import {Component} from 'react'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 
-import {State} from '../configureStore'
-import {Route} from '../models/Route'
-import {Stop} from '../models/Stop'
+import {State} from '../configureStore.ts'
+import {Route} from '../models/Route.ts'
+import {Stop} from '../models/Stop.ts'
 
 // actions
-import {requestRoute} from '../actions/routes'
+import {requestRoute} from '../actions/routes.ts'
 
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import MapEditor from '../components/MapEditor/MapEditor'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 import RaisedButton from 'material-ui/RaisedButton'
+import MapEditor from '../components/MapEditor/MapEditor.tsx'
 
 //icons
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'

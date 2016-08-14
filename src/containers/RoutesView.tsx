@@ -3,20 +3,20 @@ import {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 
-import {State} from '../configureStore'
-import {Route} from '../models/Route'
+import {State} from '../configureStore.ts'
+import {Route} from 'material-ui/styles/transitions';
 
 // actions
 import {
   requestRoutes,
   receiveRoutes,
   requestRoute
-} from '../actions/routes'
+} from '../actions/routes.ts'
 
 // components
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import RoutesList from '../components/RoutesList/RoutesList'
+import RoutesList from '../components/RoutesList/RoutesList.tsx'
 
 //icons
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'

@@ -1,4 +1,4 @@
-import {CALL_API} from '../middleware/api'
+import {CALL_API} from '../middleware/api.ts'
 import {createAction} from 'redux-actions'
 
 export const REQUEST_ROUTES = 'REQUEST_ROUTES'

@@ -10,7 +10,7 @@ import ActionsStars from 'material-ui/svg-icons/action/stars'
 
 import {Route} from '../../models/Route'
 
-const palette = require('!!sass-variable-loader!../../../src/styles/_palette.scss')
+const palette: any = require('!!sass-variable-loader!../../styles/_palette.scss')
 
 const routeType = type => {
   if (type === 'bus') return 'городской автобус'

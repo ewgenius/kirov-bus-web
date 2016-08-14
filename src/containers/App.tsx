@@ -6,18 +6,18 @@ import {Router, Route, Redirect, hashHistory} from 'react-router'
 import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import {MuiThemeProvider} from 'material-ui/styles'
 import * as mapboxgl from 'mapbox-gl'
-import configureStore from '../configureStore'
-import theme from '../styles/theme'
+import configureStore from '../configureStore.ts'
+import theme from '../styles/theme.ts'
 
-import Shell from './Shell'
+import Shell from './Shell.tsx'
 // views
-import RoutesView from './RoutesView'
-import RouteView from './RouteView'
-import Settings from './Settings'
-import About from './About'
-import Editor from './Editor'
+import RoutesView from './RoutesView.tsx'
+import RouteView from './RouteView.tsx'
+import Settings from './Settings.tsx'
+import About from './About.tsx'
+import Editor from './Editor.tsx'
 
-require('../../src/styles/main.scss')
+import '../styles/main.scss'
 injectTapEventPlugin()
 
 const setkey = 'accessToken'

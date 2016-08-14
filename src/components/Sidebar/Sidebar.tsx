@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Component, PropTypes} from 'react'
-require('../../../src/components/Sidebar/Sidebar.scss')
+import './Sidebar.scss'
 
 // components
 import AppBar from 'material-ui/AppBar'

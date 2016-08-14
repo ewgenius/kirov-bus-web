@@ -2,14 +2,14 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import * as promise from 'redux-promise'
 import * as createLogger from 'redux-logger'
-import api from './middleware/api'
+import api from './middleware/api.ts'
 import {routerReducer, routerMiddleware} from 'react-router-redux'
 import {hashHistory} from 'react-router'
 
-import ui from './reducers/ui'
-import {UiState} from './reducers/ui'
-import routes from './reducers/routes'
-import {RoutesState} from './reducers/routes'
+import ui from './reducers/ui.ts'
+import {UiState} from './reducers/ui.ts'
+import routes from './reducers/routes.ts'
+import {RoutesState} from './reducers/routes.ts'
 
 const logger = createLogger()
 
