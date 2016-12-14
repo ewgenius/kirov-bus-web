@@ -1,0 +1,9 @@
+.mapbox-view {
+  width: 100%;
+  height: 100%;
+}
+
+.mapbox-view .mapbox-container {
+  width: 100%;
+  height: 100%;
+}

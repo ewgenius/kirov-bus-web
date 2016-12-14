@@ -6,12 +6,10 @@ import MapBoxView from './components/MapBoxView/MapBoxView'
 
 class App extends Component<any, any> {
   render() {
-    return <div className="App">
+    return <div className='App' style={{ width: '100%', height: '100%' }}>
       <MapBoxView />
     </div>
   }
 }
-
-console.log('init app')
 
 render(<App />, document.getElementById('root'))
