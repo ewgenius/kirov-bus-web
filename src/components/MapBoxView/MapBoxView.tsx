@@ -1,6 +1,7 @@
 import './MapBoxView.css'
 import * as React from 'react'
 import { Component, Props } from 'react'
+// eslint-disable-next-line
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 
 export default class MapBoxView extends Component<Props<any>, {}> {
